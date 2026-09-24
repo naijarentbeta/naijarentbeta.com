@@ -7,8 +7,8 @@
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -21,13 +21,16 @@
             brand: {
               50: '#F0FDF4',
               100: '#DCFCE7',
+              200: '#BBF7D0',
               500: '#16A34A',
               600: '#15803D',
               700: '#166534',
+              800: '#166534',
               900: '#14532D',
               950: '#052E16',
             },
             slateDark: {
+              800: '#1E293B',
               900: '#0F172A',
               950: '#020617',
             }
@@ -64,21 +67,21 @@
 
   <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2.5">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-display font-black text-xl shadow-md shadow-brand-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-display font-black text-xl shadow-md shadow-brand-500/20">
           NR
         </div>
         <div>
           <div class="flex items-center gap-1.5">
             <span class="text-xl font-display font-black tracking-tight text-slate-900">NAIJA<span class="text-brand-600">RENT</span></span>
-            <span class="bg-brand-100 text-brand-700 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Beta</span>
+            <span class="bg-brand-100 text-brand-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Beta</span>
           </div>
-          <span class="block text-[9px] font-bold text-slate-400 uppercase tracking-widest -mt-1">Rent-to-Own Nigeria</span>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest -mt-0.5">Rent-to-Own Nigeria</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600">
+      <nav class="hidden md:flex items-center gap-8 text-xs font-bold text-slate-600">
         <a href="#calculator-section" class="hover:text-brand-600 transition-colors">Equity Calculator</a>
         <a href="#properties-section" class="hover:text-brand-600 transition-colors">Verified Homes</a>
         <a href="#how-it-works" class="hover:text-brand-600 transition-colors">How It Works</a>
@@ -86,7 +89,7 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <button onclick="openEligibilityModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 transition-all">
+        <button onclick="openEligibilityModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition-all">
           <i data-lucide="check-circle" class="w-4 h-4 text-brand-600"></i> Check Eligibility
         </button>
         <a href="https://wa.me/2348000000000?text=Hello%20NaijaRent%20Beta%2C%20I%20am%20interested%20in%20the%20Rent-to-Own%20scheme" target="_blank" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-brand-500/20 transition-all">
@@ -96,60 +99,62 @@
     </div>
   </header>
 
-  <!-- ================= HERO ================= -->
-  <section class="relative pt-10 sm:pt-16 pb-12 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-12 sm:pt-20 pb-16 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center space-y-4">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold">
-          <i data-lucide="shield-check" class="w-4 h-4"></i> Stop paying rent to landlord pockets with zero equity
+      <div class="max-w-3xl mx-auto text-center space-y-5">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Stop paying dead rent into landlord pockets
         </div>
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
           Turn Your Monthly Rent Into <span class="text-brand-600">Home Ownership</span> in Nigeria.
         </h1>
-        <p class="text-sm sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Move into a certified Lagos or Abuja home today with just a 5% commitment. 40% of every monthly payment builds your equity balance over 3 to 10 years with <strong>NaijaRent Beta</strong>.
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Move into a vetted Lagos or Abuja home today with just a 5% commitment. 40% of every monthly payment builds your equity ownership balance over 3 to 10 years.
         </p>
-        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="#calculator-section" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-brand-600/20 flex items-center justify-center gap-2 transition-all">
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="#calculator-section" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-brand-600/25 flex items-center justify-center gap-2 transition-all">
             <i data-lucide="calculator" class="w-4 h-4"></i> Calculate Your Equity Plan
           </a>
-          <a href="#properties-section" class="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-slate-300 hover:border-slate-400 bg-white font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-center gap-2 transition-all">
-            Browse Verified Homes
+          <a href="#properties-section" class="w-full sm:w-auto px-7 py-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-center gap-2 shadow-sm transition-all">
+            Browse 24 Verified Homes
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= INTERACTIVE RENT-TO-OWN CALCULATOR ================= -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20" id="calculator-section">
+  <!-- ================= AMORTIZATION CALCULATOR ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 relative z-20" id="calculator-section">
     <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200/80">
       
-      <div class="border-b border-slate-100 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div class="border-b border-slate-100 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <span class="text-xs font-black uppercase tracking-wider text-brand-600 flex items-center gap-1.5">
-            <i data-lucide="sliders" class="w-4 h-4"></i> NaijaRent Transparent Equity Engine
+            <i data-lucide="sliders" class="w-4 h-4"></i> Transparent Equity Engine
           </span>
-          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900">Interactive Rent-to-Own Amortization Calculator</h2>
+          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 mt-1">Interactive Rent-to-Own Calculator</h2>
         </div>
-        <p class="text-xs text-slate-500 font-medium">Locked property valuation • Zero compound mortgage interest</p>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-medium">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> Locked valuation • Zero mortgage interest
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Controls Column -->
+        <!-- Interactive Controls -->
         <div class="lg:col-span-7 space-y-6">
           
           <div>
             <div class="flex justify-between items-center mb-2">
               <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Property Valuation</label>
-              <span id="label-prop-val" class="font-display font-bold text-base text-slate-900">₦45,000,000</span>
+              <span id="label-prop-val" class="font-display font-bold text-lg text-slate-900">₦45,000,000</span>
             </div>
-            <input type="range" id="input-prop-val" min="20000000" max="150000000" step="5000000" value="45000000" oninput="runCalculator()" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
-            <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+            <input type="range" id="input-prop-val" min="20000000" max="150000000" step="5000000" value="45000000" oninput="runCalculator()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1.5 font-medium">
               <span>₦20M (Starter Flat)</span>
               <span>₦75M (Terrace)</span>
-              <span>₦150M (Detached Duplex)</span>
+              <span>₦150M (Detached Villa)</span>
             </div>
           </div>
 
@@ -159,7 +164,7 @@
                 <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Down Payment</label>
                 <span id="label-down-pct" class="font-display font-bold text-sm text-brand-600">10% (₦4,500,000)</span>
               </div>
-              <select id="select-down-pct" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+              <select id="select-down-pct" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
                 <option value="0.05">5% Minimum Entry</option>
                 <option value="0.10" selected>10% Fast-Track</option>
                 <option value="0.15">15% Accelerated</option>
@@ -172,7 +177,7 @@
                 <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Target Tenor</label>
                 <span id="label-tenor-val" class="font-display font-bold text-sm text-slate-900">5 Years (60 Mos)</span>
               </div>
-              <select id="select-tenor" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+              <select id="select-tenor" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
                 <option value="3">3 Years (Aggressive Buyout)</option>
                 <option value="5" selected>5 Years (Standard Model)</option>
                 <option value="7">7 Years (Extended Plan)</option>
@@ -181,18 +186,18 @@
             </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-brand-50/60 border border-brand-100 flex items-start gap-3">
+          <div class="p-4 rounded-2xl bg-brand-50/70 border border-brand-100 flex items-start gap-3">
             <i data-lucide="info" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
-            <p class="text-xs text-brand-900 leading-relaxed">
-              <strong>How your money is allocated:</strong> Every month, 60% covers the fair market occupancy lease, while <strong>40% goes directly into your NaijaRent verified equity balance</strong>. At the end of the term, your accumulated credit pays down the final deed balance.
+            <p class="text-xs text-brand-950 leading-relaxed">
+              <strong>How your funds are allocated:</strong> Every month, 60% covers the fair market occupancy lease, while <strong>40% goes directly into your verified property equity credit account</strong>. At the end of your term, accumulated credit pays down the deed balance.
             </p>
           </div>
 
         </div>
 
-        <!-- Dynamic Output Breakdown Card -->
-        <div class="lg:col-span-5 bg-slateDark-900 text-white p-6 sm:p-8 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
-          <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-brand-500/10 rounded-full blur-2xl"></div>
+        <!-- Breakdown Output Box -->
+        <div class="lg:col-span-5 bg-slateDark-900 text-white p-7 sm:p-8 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-12 -bottom-12 w-44 h-44 bg-brand-500/10 rounded-full blur-2xl"></div>
 
           <div>
             <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">Total Monthly Commitment</span>
@@ -209,7 +214,7 @@
               <span id="output-rent-portion" class="font-bold text-slate-200">₦292,500/mo</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-400">Initial 10% Down Payment:</span>
+              <span class="text-slate-400">Initial Down Payment:</span>
               <span id="output-down-payment" class="font-bold text-white">₦4,500,000</span>
             </div>
             <div class="flex justify-between items-center pt-2 border-t border-slate-800">
@@ -218,13 +223,13 @@
             </div>
           </div>
 
-          <div class="p-3 bg-slateDark-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+          <div class="p-3.5 bg-slateDark-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
             <span class="text-slate-400">Min. Net Monthly Income to Qualify:</span>
             <span id="output-min-income" class="font-bold text-brand-400">₦1,477,000/mo</span>
           </div>
 
-          <button onclick="dispatchCalculatorOffer()" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
-            <i data-lucide="file-text" class="w-4 h-4"></i> Lock This Pricing & Inquire
+          <button onclick="dispatchCalculatorOffer()" class="w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
+            <i data-lucide="send" class="w-4 h-4"></i> Lock This Pricing & Inquire via WhatsApp
           </button>
         </div>
 
@@ -233,19 +238,19 @@
     </div>
   </section>
 
-  <!-- ================= VERIFIED PROPERTIES DIRECTORY ================= -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20" id="properties-section">
+  <!-- ================= PROPERTY DIRECTORY ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24" id="properties-section">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
       <div>
         <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Direct From Vetted Developers</span>
         <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Certified Rent-to-Own Residences</h2>
       </div>
       <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
-        <button onclick="filterProperties('All')" class="px-3 py-1.5 rounded-xl bg-slate-900 text-white">All Locations</button>
-        <button onclick="filterProperties('Lekki')" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500">Lekki Corridor</button>
-        <button onclick="filterProperties('Sangotedo')" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500">Sangotedo</button>
-        <button onclick="filterProperties('Ikeja')" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500">Ikeja Mainland</button>
-        <button onclick="filterProperties('Abuja')" class="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500">Abuja</button>
+        <button onclick="filterProperties('All')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white">All Locations</button>
+        <button onclick="filterProperties('Lekki')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Lekki Corridor</button>
+        <button onclick="filterProperties('Sangotedo')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Sangotedo</button>
+        <button onclick="filterProperties('Ikeja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Ikeja Mainland</button>
+        <button onclick="filterProperties('Abuja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Abuja</button>
       </div>
     </div>
 
@@ -260,22 +265,22 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">1</div>
         <h3 class="font-display font-bold text-sm text-slate-900">Prequalify in 2 Mins</h3>
         <p class="text-xs text-slate-500 leading-relaxed">Enter your net monthly income and target home location to receive instant credit eligibility.</p>
       </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">2</div>
         <h3 class="font-display font-bold text-sm text-slate-900">Inspect & Commit 5%</h3>
         <p class="text-xs text-slate-500 leading-relaxed">Tour the property, sign the tri-partite lease-option agreement, and pay your initial equity deposit.</p>
       </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">3</div>
         <h3 class="font-display font-bold text-sm text-slate-900">Move In & Accrue</h3>
         <p class="text-xs text-slate-500 leading-relaxed">Live in your home immediately. 40% of every monthly rent payment automatically builds your ownership equity.</p>
       </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">4</div>
         <h3 class="font-display font-bold text-sm text-slate-900">Full Deed Transfer</h3>
         <p class="text-xs text-slate-500 leading-relaxed">At your lease term's conclusion, convert your equity into 100% legal ownership or refinance via FMBN.</p>
@@ -283,13 +288,13 @@
     </div>
   </section>
 
-  <!-- ================= PREQUALIFICATION MODAL ================= -->
+  <!-- ================= ELIGIBILITY QUIZ MODAL ================= -->
   <div id="eligibility-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
         <div>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Quick Assessment</span>
-          <h3 class="text-lg font-display font-bold text-slate-900">NaijaRent Eligibility Check</h3>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Instant Check</span>
+          <h3 class="text-lg font-display font-bold text-slate-900">NaijaRent Eligibility Assessment</h3>
         </div>
         <button onclick="closeEligibilityModal()" class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -298,12 +303,12 @@
 
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Your Net Monthly Salary / Income (₦)</label>
-          <input type="number" id="quiz-income" placeholder="e.g. 1500000" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold" />
+          <label class="block font-bold text-slate-700 mb-1">Your Net Monthly Salary / Business Income (₦)</label>
+          <input type="number" id="quiz-income" placeholder="e.g. 1500000" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Target Property Budget</label>
-          <select id="quiz-budget" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold">
+          <select id="quiz-budget" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
             <option value="35000000">₦35,000,000 (2-Bed Apartment)</option>
             <option value="55000000">₦55,000,000 (3-Bed Terrace)</option>
             <option value="90000000">₦90,000,000 (4-Bed Semi-Detached)</option>
@@ -312,7 +317,7 @@
         </div>
         <div>
           <label class="block font-bold text-slate-700 mb-1">Employment / Business Type</label>
-          <select id="quiz-employment" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-bold">
+          <select id="quiz-employment" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
             <option>Salaried Corporate Employee</option>
             <option>Business Owner / Entrepreneur</option>
             <option>Diaspora Remittance Earner</option>
@@ -322,13 +327,13 @@
 
       <div id="quiz-result-box" class="hidden p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs"></div>
 
-      <button onclick="evaluateEligibility()" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider transition-all">
+      <button onclick="evaluateEligibility()" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/20 transition-all">
         Calculate My Eligibility
       </button>
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT ================= -->
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     const PROPERTIES = [
       {
