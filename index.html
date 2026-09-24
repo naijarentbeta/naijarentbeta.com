@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NaijaRent Beta ✦ Rent-to-Own Homes in Lagos & Abuja</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              500: '#16A34A',
+              600: '#15803D',
+              700: '#166534',
+              800: '#166534',
+              900: '#14532D',
+              950: '#052E16',
+            },
+            slateDark: {
+              800: '#1E293B',
+              900: '#0F172A',
+              950: '#020617',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-20">
+
+  <!-- TOP NOTICE BAR -->
+  <div class="bg-brand-950 text-brand-100 text-xs py-2 px-4 border-b border-brand-800">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="bg-brand-500 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">C of O Verified</span>
+        <span class="truncate">Zero 30% Down Payment Traps. Move in with 5% equity and build homeownership monthly.</span>
+      </div>
+      <div class="hidden md:flex items-center gap-4 text-[11px] text-brand-200">
+        <span>Lagos State Land Registry Compliant</span>
+        <span>•</span>
+        <span>Governor's Consent Guaranteed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-display font-black text-xl shadow-md shadow-brand-500/20">
+          NR
+        </div>
+        <div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-xl font-display font-black tracking-tight text-slate-900">NAIJA<span class="text-brand-600">RENT</span></span>
+            <span class="bg-brand-100 text-brand-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Beta</span>
+          </div>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest -mt-0.5">Rent-to-Own Nigeria</span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-xs font-bold text-slate-600">
+        <a href="#calculator-section" class="hover:text-brand-600 transition-colors">Equity Calculator</a>
+        <a href="#properties-section" class="hover:text-brand-600 transition-colors">Verified Homes</a>
+        <a href="#how-it-works" class="hover:text-brand-600 transition-colors">How It Works</a>
+        <button onclick="openEligibilityModal()" class="hover:text-brand-600 transition-colors">Eligibility Quiz</button>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openEligibilityModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition-all">
+          <i data-lucide="check-circle" class="w-4 h-4 text-brand-600"></i> Check Eligibility
+        </button>
+        <a href="https://wa.me/2348000000000?text=Hello%20NaijaRent%20Beta%2C%20I%20am%20interested%20in%20the%20Rent-to-Own%20scheme" target="_blank" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-brand-500/20 transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> Advisor Desk
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-12 sm:pt-20 pb-16 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center space-y-5">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Stop paying dead rent into landlord pockets
+        </div>
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
+          Turn Your Monthly Rent Into <span class="text-brand-600">Home Ownership</span> in Nigeria.
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          Move into a vetted Lagos or Abuja home today with just a 5% commitment. 40% of every monthly payment builds your equity ownership balance over 3 to 10 years.
+        </p>
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+          <a href="#calculator-section" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-brand-600/25 flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="calculator" class="w-4 h-4"></i> Calculate Your Equity Plan
+          </a>
+          <a href="#properties-section" class="w-full sm:w-auto px-7 py-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-center gap-2 shadow-sm transition-all">
+            Browse Verified Homes
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMORTIZATION CALCULATOR -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 relative z-20" id="calculator-section">
+    <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200/80">
+      
+      <div class="border-b border-slate-100 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-brand-600 flex items-center gap-1.5">
+            <i data-lucide="sliders" class="w-4 h-4"></i> Transparent Equity Engine
+          </span>
+          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 mt-1">Interactive Rent-to-Own Calculator</h2>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-medium">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> Locked valuation • Zero mortgage interest
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Controls Column -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Property Valuation</label>
+              <span id="label-prop-val" class="font-display font-bold text-lg text-slate-900">₦45,000,000</span>
+            </div>
+            <input type="range" id="input-prop-val" min="20000000" max="150000000" step="5000000" value="45000000" oninput="runCalculator()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
+            <div class="flex justify-between text-[11px] text-slate-400 mt-1.5 font-medium">
+              <span>₦20M (Starter Flat)</span>
+              <span>₦75M (Terrace)</span>
+              <span>₦150M (Detached Villa)</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Down Payment</label>
+                <span id="label-down-pct" class="font-display font-bold text-sm text-brand-600">10% (₦4,500,000)</span>
+              </div>
+              <select id="select-down-pct" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+                <option value="0.05">5% Minimum Entry</option>
+                <option value="0.10" selected>10% Fast-Track</option>
+                <option value="0.15">15% Accelerated</option>
+                <option value="0.20">20% Premium Equity</option>
+              </select>
+            </div>
+
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Target Tenor</label>
+                <span id="label-tenor-val" class="font-display font-bold text-sm text-slate-900">5 Years (60 Mos)</span>
+              </div>
+              <select id="select-tenor" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+                <option value="3">3 Years (Aggressive Buyout)</option>
+                <option value="5" selected>5 Years (Standard Model)</option>
+                <option value="7">7 Years (Extended Plan)</option>
+                <option value="10">10 Years (Max Flexibility)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-brand-50/70 border border-brand-100 flex items-start gap-3">
+            <i data-lucide="info" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
+            <p class="text-xs text-brand-950 leading-relaxed">
+              <strong>How your funds are allocated:</strong> Every month, 60% covers the fair market occupancy lease, while <strong>40% goes directly into your verified property equity credit account</strong>. At the end of your term, accumulated credit pays down the deed balance.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Breakdown Output Box -->
+        <div class="lg:col-span-5 bg-slateDark-900 text-white p-7 sm:p-8 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
+          <div class="absolute -right-12 -bottom-12 w-44 h-44 bg-brand-500/10 rounded-full blur-2xl"></div>
+
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">Total Monthly Commitment</span>
+            <div id="output-monthly-total" class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">₦487,500<span class="text-xs text-slate-400 font-normal">/mo</span></div>
+          </div>
+
+          <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-400"></span> Monthly Equity Credit (40%)</span>
+              <span id="output-equity-credit" class="font-bold text-brand-400">₦195,000/mo</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span> Occupancy Rent Portion (60%)</span>
+              <span id="output-rent-portion" class="font-bold text-slate-200">₦292,500/mo</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Initial Down Payment:</span>
+              <span id="output-down-payment" class="font-bold text-white">₦4,500,000</span>
+            </div>
+            <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+              <span class="text-slate-300 font-bold">Total Equity Built Over Term:</span>
+              <span id="output-total-equity" class="font-display font-bold text-base text-emerald-300">₦16,200,000</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 bg-slateDark-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">Min. Net Monthly Income to Qualify:</span>
+            <span id="output-min-income" class="font-bold text-brand-400">₦1,477,000/mo</span>
+          </div>
+
+          <button onclick="dispatchCalculatorOffer()" class="w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
+            <i data-lucide="send" class="w-4 h-4"></i> Lock This Pricing & Inquire via WhatsApp
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROPERTY DIRECTORY -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24" id="properties-section">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Direct From Vetted Developers</span>
+        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Certified Rent-to-Own Residences</h2>
+      </div>
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
+        <button onclick="filterProperties('All')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white">All Locations</button>
+        <button onclick="filterProperties('Lekki')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Lekki Corridor</button>
+        <button onclick="filterProperties('Sangotedo')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Sangotedo</button>
+        <button onclick="filterProperties('Ikeja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Ikeja Mainland</button>
+        <button onclick="filterProperties('Abuja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Abuja</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="properties-grid"></div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-16" id="how-it-works">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <span class="text-xs font-bold uppercase tracking-wider text-brand-600">NaijaRent Step-by-Step Path</span>
+      <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">From Tenant to Deed Holder</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">1</div>
+        <h3 class="font-display font-bold text-sm text-slate-900">Prequalify in 2 Mins</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Enter your net monthly income and target home location to receive instant credit eligibility.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">2</div>
+        <h3 class="font-display font-bold text-sm text-slate-900">Inspect & Commit 5%</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Tour the property, sign the tri-partite lease-option agreement, and pay your initial equity deposit.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">3</div>
+        <h3 class="font-display font-bold text-sm text-slate-900">Move In & Accrue</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Live in your home immediately. 40% of every monthly rent payment automatically builds your ownership equity.</p>
+      </div>
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">4</div>
+        <h3 class="font-display font-bold text-sm text-slate-900">Full Deed Transfer</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">At your lease term's conclusion, convert your equity into 100% legal ownership or refinance via FMBN.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ELIGIBILITY QUIZ MODAL -->
+  <div id="eligibility-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Instant Check</span>
+          <h3 class="text-lg font-display font-bold text-slate-900">NaijaRent Eligibility Assessment</h3>
+        </div>
+        <button onclick="closeEligibilityModal()" class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Your Net Monthly Salary / Business Income (₦)</label>
+          <input type="number" id="quiz-income" placeholder="e.g. 1500000" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Target Property Budget</label>
+          <select id="quiz-budget" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
+            <option value="35000000">₦35,000,000 (2-Bed Apartment)</option>
+            <option value="55000000">₦55,000,000 (3-Bed Terrace)</option>
+            <option value="90000000">₦90,000,000 (4-Bed Semi-Detached)</option>
+            <option value="130000000">₦130,000,000 (Detached Villa)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Employment / Business Type</label>
+          <select id="quiz-employment" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
+            <option>Salaried Corporate Employee</option>
+            <option>Business Owner / Entrepreneur</option>
+            <option>Diaspora Remittance Earner</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="quiz-result-box" class="hidden p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs"></div>
+
+      <button onclick="evaluateEligibility()" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/20 transition-all">
+        Calculate My Eligibility
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const PROPERTIES = [
+      {
+        id: "nr-01",
+        title: "Marula Park 2-Bedroom Suite",
+        location: "Lekki",
+        subLocation: "Lagos New Town, Lekki-Epe Expressway",
+        price: 38000000,
+        monthlyFrom: 395000,
+        downFrom: 1900000,
+        beds: 2,
+        baths: 2,
+        titleType: "Governor's Consent",
+        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-02",
+        title: "Sangotedo Green Oak Terrace",
+        location: "Sangotedo",
+        subLocation: "Behind Novare Mall, Sangotedo",
+        price: 52000000,
+        monthlyFrom: 540000,
+        downFrom: 2600000,
+        beds: 3,
+        baths: 3,
+        titleType: "C of O (Certificate of Occupancy)",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-03",
+        title: "Karsana Diplomatic Duplex",
+        location: "Abuja",
+        subLocation: "Karsana District, Phase 3, Abuja",
+        price: 65000000,
+        monthlyFrom: 680000,
+        downFrom: 3250000,
+        beds: 4,
+        baths: 4,
+        titleType: "FCDA Right of Occupancy",
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-04",
+        title: "Ikeja GRA Horizon Apartment",
+        location: "Ikeja",
+        subLocation: "Sobobw Arobiodu, Ikeja GRA",
+        price: 78000000,
+        monthlyFrom: 810000,
+        downFrom: 3900000,
+        beds: 3,
+        baths: 3,
+        titleType: "Federal C of O",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-05",
+        title: "Orchid Coastal Maisonette",
+        location: "Lekki",
+        subLocation: "Orchid Road, 2nd Tollgate, Lekki",
+        price: 48000000,
+        monthlyFrom: 495000,
+        downFrom: 2400000,
+        beds: 2,
+        baths: 3,
+        titleType: "Governor's Consent",
+        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-06",
+        title: "Guzape Viewpoint Residence",
+        location: "Abuja",
+        subLocation: "Guzape Hills, Abuja",
+        price: 92000000,
+        monthlyFrom: 960000,
+        downFrom: 4600000,
+        beds: 4,
+        baths: 5,
+        titleType: "FCDA C of O",
+        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    function formatNgn(num) {
+      return '₦' + Number(Math.round(num)).toLocaleString('en-NG');
+    }
+
+    function runCalculator() {
+      const propVal = parseFloat(document.getElementById('input-prop-val').value);
+      const downPct = parseFloat(document.getElementById('select-down-pct').value);
+      const tenorYears = parseFloat(document.getElementById('select-tenor').value);
+      const totalMonths = tenorYears * 12;
+
+      document.getElementById('label-prop-val').textContent = formatNgn(propVal);
+      document.getElementById('label-down-pct').textContent = `${downPct * 100}% (${formatNgn(propVal * downPct)})`;
+      document.getElementById('label-tenor-val').textContent = `${tenorYears} Years (${totalMonths} Mos)`;
+
+      const downPayment = propVal * downPct;
+      const principalRemaining = propVal - downPayment;
+
+      const targetEquityAccumulation = principalRemaining * 0.40;
+      const monthlyEquityCredit = targetEquityAccumulation / totalMonths;
+      const monthlyRentPortion = (propVal * 0.075) / 12;
+      const totalMonthlyCommitment = monthlyRentPortion + monthlyEquityCredit;
+      const totalEquityBuiltOverTerm = downPayment + (monthlyEquityCredit * totalMonths);
+      const minRequiredSalary = totalMonthlyCommitment / 0.33;
+
+      document.getElementById('output-monthly-total').innerHTML = `${formatNgn(totalMonthlyCommitment)}<span class="text-xs text-slate-400 font-normal">/mo</span>`;
+      document.getElementById('output-equity-credit').textContent = `${formatNgn(monthlyEquityCredit)}/mo`;
+      document.getElementById('output-rent-portion').textContent = `${formatNgn(monthlyRentPortion)}/mo`;
+      document.getElementById('output-down-payment').textContent = formatNgn(downPayment);
+      document.getElementById('output-total-equity').textContent = formatNgn(totalEquityBuiltOverTerm);
+      document.getElementById('output-min-income').textContent = `${formatNgn(minRequiredSalary)}/mo`;
+    }
+
+    function renderProperties(list) {
+      const container = document.getElementById('properties-grid');
+      container.innerHTML = list.map(item => `
+        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-brand-500 transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
+          <div class="relative aspect-video">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" />
+            <span class="absolute top-3 left-3 bg-brand-950/80 backdrop-blur-md text-white font-extrabold text-[9px] uppercase px-2.5 py-1 rounded-full">
+              ${item.titleType}
+            </span>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center gap-1 text-[11px] font-bold text-slate-400">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-600"></i> ${item.subLocation}
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-900 mt-1">${item.title}</h3>
+              <div class="flex items-center gap-3 mt-2 text-xs text-slate-500 font-medium">
+                <span>${item.beds} Bedrooms</span> • <span>${item.baths} Bathrooms</span>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-slate-400 block font-bold uppercase">Move in from</span>
+                <span class="text-base font-display font-black text-brand-600">${formatNgn(item.monthlyFrom)}<span class="text-xs text-slate-400 font-normal">/mo</span></span>
+              </div>
+              <a href="https://wa.me/2348000000000?text=${encodeURIComponent('Hello NaijaRent Beta, I want to book an inspection for: ' + item.title)}" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-brand-600 text-white font-bold text-xs transition-colors">
+                Book Tour
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function filterProperties(loc) {
+      if (loc === 'All') renderProperties(PROPERTIES);
+      else renderProperties(PROPERTIES.filter(p => p.location === loc));
+    }
+
+    function dispatchCalculatorOffer() {
+      const propVal = document.getElementById('label-prop-val').textContent;
+      const downPct = document.getElementById('label-down-pct').textContent;
+      const tenor = document.getElementById('label-tenor-val').textContent;
+      const monthly = document.getElementById('output-monthly-total').textContent;
+
+      const text = `Hello NaijaRent Beta, I ran an equity simulation on your portal:
+✦ Property Value: ${propVal}
+✦ Down Commitment: ${downPct}
+✦ Tenor: ${tenor}
+✦ Monthly Equity Plan: ${monthly}
+Please share available matched inventory and eligibility terms.`;
+
+      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function openEligibilityModal() {
+      document.getElementById('eligibility-modal').classList.remove('hidden');
+      document.getElementById('eligibility-modal').classList.add('flex');
+    }
+
+    function closeEligibilityModal() {
+      document.getElementById('eligibility-modal').classList.add('hidden');
+      document.getElementById('eligibility-modal').classList.remove('flex');
+    }
+
+    function evaluateEligibility() {
+      const income = parseFloat(document.getElementById('quiz-income').value) || 0;
+      const budget = parseFloat(document.getElementById('quiz-budget').value) || 0;
+      const box = document.getElementById('quiz-result-box');
+
+      if (income <= 0) {
+        alert("Please enter a valid monthly salary / income amount.");
+        return;
+      }
+
+      const maxAllowableMonthly = income * 0.33;
+      const estimatedMonthlyPayment = (budget * 0.08) / 12 + (budget * 0.35) / 60;
+
+      box.classList.remove('hidden');
+      if (maxAllowableMonthly >= estimatedMonthlyPayment) {
+        box.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs space-y-1";
+        box.innerHTML = `
+          <strong class="text-brand-600 block text-sm">✓ High Prequalification Readiness</strong>
+          Your monthly allocation of ${formatNgn(maxAllowableMonthly)} easily satisfies the required 33% debt-to-income requirement for this budget tier (${formatNgn(estimatedMonthlyPayment)}/mo).
+        `;
+      } else {
+        box.className = "p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs space-y-1";
+        box.innerHTML = `
+          <strong class="text-amber-700 block text-sm">Notice: Tenor Adjustment Recommended</strong>
+          Under standard 33% income guidelines, an income of ${formatNgn(income)} comfortably supports up to ${formatNgn(maxAllowableMonthly)}/month. We suggest choosing a 10-year tenor or a ₦35M starter home.
+        `;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      runCalculator();
+      renderProperties(PROPERTIES);
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
