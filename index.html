@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NaijaRent Beta ✦ Rent-to-Own Homes in Lagos & Abuja</title>
+  <title>NaijaRent Beta ✦ Rent Directly From Landlords | Zero Agent Fees</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,28 +44,28 @@
     };
   </script>
 
-  <!-- Lucide Icons CDN -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-20">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-24">
 
-  <!-- TOP NOTICE BAR -->
-  <div class="bg-brand-950 text-brand-100 text-xs py-2 px-4 border-b border-brand-800">
+  <!-- ================= TOP NOTICE BAR ================= -->
+  <div class="bg-brand-950 text-brand-100 text-xs py-2.5 px-4 border-b border-brand-800">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <span class="bg-brand-500 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">C of O Verified</span>
-        <span class="truncate">Zero 30% Down Payment Traps. Move in with 5% equity and build homeownership monthly.</span>
+        <span class="bg-brand-500 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">0% Agency Fee</span>
+        <span class="truncate">Stop paying 10% Agent Fee + 10% Agreement Fee. Rent directly from verified landlords.</span>
       </div>
       <div class="hidden md:flex items-center gap-4 text-[11px] text-brand-200">
-        <span>Lagos State Land Registry Compliant</span>
+        <span>Verified Property Ownership</span>
         <span>•</span>
-        <span>Governor's Consent Guaranteed</span>
+        <span>Zero Inspection Fee Scams</span>
       </div>
     </div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- ================= NAVBAR ================= -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       <a href="#" class="flex items-center gap-3">
@@ -77,160 +77,154 @@
             <span class="text-xl font-display font-black tracking-tight text-slate-900">NAIJA<span class="text-brand-600">RENT</span></span>
             <span class="bg-brand-100 text-brand-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Beta</span>
           </div>
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest -mt-0.5">Rent-to-Own Nigeria</span>
+          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest -mt-0.5">Direct Landlord Network</span>
         </div>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 text-xs font-bold text-slate-600">
-        <a href="#calculator-section" class="hover:text-brand-600 transition-colors">Equity Calculator</a>
-        <a href="#properties-section" class="hover:text-brand-600 transition-colors">Verified Homes</a>
+        <a href="#properties-section" class="hover:text-brand-600 transition-colors">Direct Homes</a>
+        <a href="#savings-calculator" class="hover:text-brand-600 transition-colors">Agent Fee Savings Calculator</a>
         <a href="#how-it-works" class="hover:text-brand-600 transition-colors">How It Works</a>
-        <button onclick="openEligibilityModal()" class="hover:text-brand-600 transition-colors">Eligibility Quiz</button>
+        <button onclick="openLandlordModal()" class="hover:text-brand-600 transition-colors">List As Landlord</button>
       </nav>
 
       <div class="flex items-center gap-3">
-        <button onclick="openEligibilityModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition-all">
-          <i data-lucide="check-circle" class="w-4 h-4 text-brand-600"></i> Check Eligibility
+        <button onclick="openLandlordModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition-all">
+          <i data-lucide="plus-circle" class="w-4 h-4 text-brand-600"></i> List My Property
         </button>
-        <a href="https://wa.me/2348000000000?text=Hello%20NaijaRent%20Beta%2C%20I%20am%20interested%20in%20the%20Rent-to-Own%20scheme" target="_blank" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-brand-500/20 transition-all">
-          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> Advisor Desk
+        <a href="https://wa.me/2348000000000?text=Hello%20NaijaRent%20Beta%2C%20I%20am%20looking%20for%20a%20house%20directly%20from%20a%20landlord" target="_blank" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-brand-500/20 transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> WhatsApp Desk
         </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- ================= HERO SECTION ================= -->
   <section class="relative pt-12 sm:pt-20 pb-16 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto text-center space-y-5">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold shadow-sm">
-          <i data-lucide="shield-check" class="w-4 h-4"></i> Stop paying dead rent into landlord pockets
+        
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-sm">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-brand-600"></i> Say NO to Agent Commission & "Registration Fees"
         </div>
+
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
-          Turn Your Monthly Rent Into <span class="text-brand-600">Home Ownership</span> in Nigeria.
+          Rent Directly From Verified Landlords. <span class="text-brand-600">Zero Agent Fees.</span>
         </h1>
+
         <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Move into a vetted Lagos or Abuja home today with just a 5% commitment. 40% of every monthly payment builds your equity ownership balance over 3 to 10 years.
+          Cut out greedy middlemen and shady agents. Talk directly to verified property owners in Lagos and Abuja, schedule free inspections, and save up to ₦500,000+ in fees.
         </p>
-        <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-          <a href="#calculator-section" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-xl shadow-brand-600/25 flex items-center justify-center gap-2 transition-all">
-            <i data-lucide="calculator" class="w-4 h-4"></i> Calculate Your Equity Plan
-          </a>
-          <a href="#properties-section" class="w-full sm:w-auto px-7 py-4 rounded-xl border border-slate-300 hover:border-slate-400 bg-white font-bold text-xs uppercase tracking-wider text-slate-700 flex items-center justify-center gap-2 shadow-sm transition-all">
-            Browse Verified Homes
-          </a>
+
+        <!-- Quick Search Bar -->
+        <div class="bg-white p-3 sm:p-4 rounded-2xl shadow-xl border border-slate-200/90 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex-1 w-full text-left">
+            <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Location</label>
+            <select id="hero-loc" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+              <option value="All">All Locations (Lagos & Abuja)</option>
+              <option value="Lekki">Lekki & Ajah</option>
+              <option value="Yaba">Yaba & Surulere</option>
+              <option value="Ikeja">Ikeja Mainland</option>
+              <option value="Abuja">Abuja (Wuse / Garki / Jabi)</option>
+            </select>
+          </div>
+
+          <div class="flex-1 w-full text-left">
+            <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Apartment Type</label>
+            <select id="hero-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
+              <option value="All">All Bed Types</option>
+              <option value="1">Self-Contain / 1 Bedroom</option>
+              <option value="2">2 Bedroom Flat</option>
+              <option value="3">3 Bedroom Apartment / Duplex</option>
+            </select>
+          </div>
+
+          <button onclick="executeHeroSearch()" class="w-full sm:w-auto px-6 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition-all sm:mt-5">
+            <i data-lucide="search" class="w-4 h-4"></i> Search Homes
+          </button>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- AMORTIZATION CALCULATOR -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 relative z-20" id="calculator-section">
+  <!-- ================= AGENT FEE SAVINGS CALCULATOR ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 relative z-20" id="savings-calculator">
     <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200/80">
       
       <div class="border-b border-slate-100 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <span class="text-xs font-black uppercase tracking-wider text-brand-600 flex items-center gap-1.5">
-            <i data-lucide="sliders" class="w-4 h-4"></i> Transparent Equity Engine
+            <i data-lucide="calculator" class="w-4 h-4"></i> Extortion Breakdown Engine
           </span>
-          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 mt-1">Interactive Rent-to-Own Calculator</h2>
+          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 mt-1">See How Much Nigerian Agents Are Stealing From You</h2>
         </div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-100 text-slate-600 text-xs font-medium">
-          <i data-lucide="lock" class="w-3.5 h-3.5 text-slate-400"></i> Locked valuation • Zero mortgage interest
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-50 text-brand-700 text-xs font-bold">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> NaijaRent Fee = ₦0
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         
-        <!-- Controls Column -->
+        <!-- Interactive Rent Slider -->
         <div class="lg:col-span-7 space-y-6">
-          
           <div>
             <div class="flex justify-between items-center mb-2">
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Property Valuation</label>
-              <span id="label-prop-val" class="font-display font-bold text-lg text-slate-900">₦45,000,000</span>
+              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Your Annual House Rent</label>
+              <span id="label-annual-rent" class="font-display font-bold text-xl text-slate-900">₦2,500,000 / year</span>
             </div>
-            <input type="range" id="input-prop-val" min="20000000" max="150000000" step="5000000" value="45000000" oninput="runCalculator()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
+            <input type="range" id="input-annual-rent" min="600000" max="15000000" step="100000" value="2500000" oninput="calculateSavings()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
             <div class="flex justify-between text-[11px] text-slate-400 mt-1.5 font-medium">
-              <span>₦20M (Starter Flat)</span>
-              <span>₦75M (Terrace)</span>
-              <span>₦150M (Detached Villa)</span>
+              <span>₦600k (Self-contain)</span>
+              <span>₦2.5M (Standard 2-Bed)</span>
+              <span>₦15M (Luxury Duplex)</span>
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Down Payment</label>
-                <span id="label-down-pct" class="font-display font-bold text-sm text-brand-600">10% (₦4,500,000)</span>
-              </div>
-              <select id="select-down-pct" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
-                <option value="0.05">5% Minimum Entry</option>
-                <option value="0.10" selected>10% Fast-Track</option>
-                <option value="0.15">15% Accelerated</option>
-                <option value="0.20">20% Premium Equity</option>
-              </select>
+          <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950 space-y-2">
+            <div class="font-bold flex items-center gap-2 text-amber-800">
+              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600"></i> What Nigerian "Agents" usually force you to pay:
             </div>
-
-            <div>
-              <div class="flex justify-between items-center mb-2">
-                <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Target Tenor</label>
-                <span id="label-tenor-val" class="font-display font-bold text-sm text-slate-900">5 Years (60 Mos)</span>
-              </div>
-              <select id="select-tenor" onchange="runCalculator()" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
-                <option value="3">3 Years (Aggressive Buyout)</option>
-                <option value="5" selected>5 Years (Standard Model)</option>
-                <option value="7">7 Years (Extended Plan)</option>
-                <option value="10">10 Years (Max Flexibility)</option>
-              </select>
-            </div>
+            <ul class="list-disc list-inside space-y-1 text-slate-700">
+              <li><strong>Agency Fee:</strong> 10% of annual rent directly into agent pocket.</li>
+              <li><strong>Legal / Agreement Fee:</strong> Another 10% just to print a paper lease.</li>
+              <li><strong>"Inspection Fee / Fuel Money":</strong> ₦5,000 - ₦10,000 per tour before you even see the house.</li>
+            </ul>
           </div>
-
-          <div class="p-4 rounded-2xl bg-brand-50/70 border border-brand-100 flex items-start gap-3">
-            <i data-lucide="info" class="w-5 h-5 text-brand-600 shrink-0 mt-0.5"></i>
-            <p class="text-xs text-brand-950 leading-relaxed">
-              <strong>How your funds are allocated:</strong> Every month, 60% covers the fair market occupancy lease, while <strong>40% goes directly into your verified property equity credit account</strong>. At the end of your term, accumulated credit pays down the deed balance.
-            </p>
-          </div>
-
         </div>
 
-        <!-- Breakdown Output Box -->
-        <div class="lg:col-span-5 bg-slateDark-900 text-white p-7 sm:p-8 rounded-3xl space-y-6 shadow-xl relative overflow-hidden">
+        <!-- Savings Output Card -->
+        <div class="lg:col-span-5 bg-slateDark-900 text-white p-7 sm:p-8 rounded-3xl space-y-5 shadow-xl relative overflow-hidden">
           <div class="absolute -right-12 -bottom-12 w-44 h-44 bg-brand-500/10 rounded-full blur-2xl"></div>
 
           <div>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-brand-400">Total Monthly Commitment</span>
-            <div id="output-monthly-total" class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">₦487,500<span class="text-xs text-slate-400 font-normal">/mo</span></div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Total Money Saved With NaijaRent</span>
+            <div id="output-total-saved" class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">₦510,000</div>
+            <span class="text-xs text-slate-400">Kept in your pocket instead of given to agents</span>
           </div>
 
-          <div class="space-y-3 pt-3 border-t border-slate-800 text-xs">
+          <div class="space-y-2.5 pt-3 border-t border-slate-800 text-xs">
             <div class="flex justify-between items-center">
-              <span class="text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-brand-400"></span> Monthly Equity Credit (40%)</span>
-              <span id="output-equity-credit" class="font-bold text-brand-400">₦195,000/mo</span>
+              <span class="text-slate-400">Agent Fee Saved (10%):</span>
+              <span id="output-agent-fee" class="font-bold text-rose-400 line-through">₦250,000</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span> Occupancy Rent Portion (60%)</span>
-              <span id="output-rent-portion" class="font-bold text-slate-200">₦292,500/mo</span>
+              <span class="text-slate-400">Agreement Fee Saved (10%):</span>
+              <span id="output-legal-fee" class="font-bold text-rose-400 line-through">₦250,000</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-slate-400">Initial Down Payment:</span>
-              <span id="output-down-payment" class="font-bold text-white">₦4,500,000</span>
+              <span class="text-slate-400">Inspection & Mobilization Scams:</span>
+              <span class="font-bold text-rose-400 line-through">₦10,000</span>
             </div>
             <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-              <span class="text-slate-300 font-bold">Total Equity Built Over Term:</span>
-              <span id="output-total-equity" class="font-display font-bold text-base text-emerald-300">₦16,200,000</span>
+              <span class="text-white font-bold">NaijaRent Platform Fee:</span>
+              <span class="font-display font-black text-emerald-400">₦0 (FREE)</span>
             </div>
           </div>
 
-          <div class="p-3.5 bg-slateDark-950 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
-            <span class="text-slate-400">Min. Net Monthly Income to Qualify:</span>
-            <span id="output-min-income" class="font-bold text-brand-400">₦1,477,000/mo</span>
-          </div>
-
-          <button onclick="dispatchCalculatorOffer()" class="w-full py-4 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
-            <i data-lucide="send" class="w-4 h-4"></i> Lock This Pricing & Inquire via WhatsApp
-          </button>
+          <a href="#properties-section" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
+            <i data-lucide="home" class="w-4 h-4"></i> Browse Zero-Fee Apartments Now
+          </a>
         </div>
 
       </div>
@@ -238,181 +232,181 @@
     </div>
   </section>
 
-  <!-- PROPERTY DIRECTORY -->
+  <!-- ================= DIRECT HOMES DIRECTORY ================= -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24" id="properties-section">
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
       <div>
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">Direct From Vetted Developers</span>
-        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Certified Rent-to-Own Residences</h2>
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">100% Direct From Property Owners</span>
+        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Available Verified Homes</h2>
       </div>
+
+      <!-- Filter Buttons -->
       <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
-        <button onclick="filterProperties('All')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white">All Locations</button>
-        <button onclick="filterProperties('Lekki')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Lekki Corridor</button>
-        <button onclick="filterProperties('Sangotedo')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Sangotedo</button>
-        <button onclick="filterProperties('Ikeja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Ikeja Mainland</button>
+        <button onclick="filterProperties('All')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white">All Homes</button>
+        <button onclick="filterProperties('Lekki')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Lekki / Ajah</button>
+        <button onclick="filterProperties('Yaba')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Yaba / Mainland</button>
+        <button onclick="filterProperties('Ikeja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Ikeja GRA</button>
         <button onclick="filterProperties('Abuja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Abuja</button>
       </div>
     </div>
 
+    <!-- Properties Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="properties-grid"></div>
   </section>
 
-  <!-- HOW IT WORKS -->
+  <!-- ================= HOW IT WORKS ================= -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-16" id="how-it-works">
     <div class="text-center max-w-2xl mx-auto mb-12">
-      <span class="text-xs font-bold uppercase tracking-wider text-brand-600">NaijaRent Step-by-Step Path</span>
-      <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">From Tenant to Deed Holder</h2>
+      <span class="text-xs font-bold uppercase tracking-wider text-brand-600">The Honest Way to Rent</span>
+      <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">How NaijaRent Eliminates Agents</h2>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">1</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Prequalify in 2 Mins</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Enter your net monthly income and target home location to receive instant credit eligibility.</p>
+        <h3 class="font-display font-bold text-sm text-slate-900">Landlords Upload Proof</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Property owners list their houses directly and upload proof of ownership (Utility bill / deed). No random street agents allowed.</p>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">2</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Inspect & Commit 5%</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Tour the property, sign the tri-partite lease-option agreement, and pay your initial equity deposit.</p>
+        <h3 class="font-display font-bold text-sm text-slate-900">Browse & Video Tour</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">View clean pictures, exact location landmarks, and genuine rental pricing without hidden agent markups.</p>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">3</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Move In & Accrue</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Live in your home immediately. 40% of every monthly rent payment automatically builds your ownership equity.</p>
+        <h3 class="font-display font-bold text-sm text-slate-900">Free Physical Inspection</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Schedule a free tour directly with the property caretaker or landlord. Never pay a kobo for "inspection fee."</p>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">4</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Full Deed Transfer</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">At your lease term's conclusion, convert your equity into 100% legal ownership or refinance via FMBN.</p>
+        <h3 class="font-display font-bold text-sm text-slate-900">Pay Direct & Move In</h3>
+        <p class="text-xs text-slate-500 leading-relaxed">Sign the standard tenancy agreement, pay your pure rent directly into the owner's bank account, and get your keys.</p>
       </div>
     </div>
   </section>
 
-  <!-- ELIGIBILITY QUIZ MODAL -->
-  <div id="eligibility-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+  <!-- ================= LANDLORD LISTING MODAL ================= -->
+  <div id="landlord-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
       <div class="flex justify-between items-center border-b border-slate-100 pb-3">
         <div>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Instant Check</span>
-          <h3 class="text-lg font-display font-bold text-slate-900">NaijaRent Eligibility Assessment</h3>
+          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Property Owners Only</span>
+          <h3 class="text-lg font-display font-bold text-slate-900">List Your Apartment Direct</h3>
         </div>
-        <button onclick="closeEligibilityModal()" class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700">
+        <button onclick="closeLandlordModal()" class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Your Net Monthly Salary / Business Income (₦)</label>
-          <input type="number" id="quiz-income" placeholder="e.g. 1500000" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
+          <label class="block font-bold text-slate-700 mb-1">Landlord / Caretaker Full Name</label>
+          <input type="text" id="owner-name" placeholder="e.g. Chief Adeleke" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
         </div>
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Target Property Budget</label>
-          <select id="quiz-budget" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
-            <option value="35000000">₦35,000,000 (2-Bed Apartment)</option>
-            <option value="55000000">₦55,000,000 (3-Bed Terrace)</option>
-            <option value="90000000">₦90,000,000 (4-Bed Semi-Detached)</option>
-            <option value="130000000">₦130,000,000 (Detached Villa)</option>
-          </select>
+          <label class="block font-bold text-slate-700 mb-1">Property Location & Area</label>
+          <input type="text" id="owner-loc" placeholder="e.g. Off Agungi Road, Lekki" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
         </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Employment / Business Type</label>
-          <select id="quiz-employment" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
-            <option>Salaried Corporate Employee</option>
-            <option>Business Owner / Entrepreneur</option>
-            <option>Diaspora Remittance Earner</option>
-          </select>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Bedroom Type</label>
+            <select id="owner-type" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
+              <option>1 Bedroom Mini Flat</option>
+              <option>2 Bedroom Flat</option>
+              <option>3 Bedroom Flat</option>
+              <option>Self-Contain / Studio</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Annual Rent (₦)</label>
+            <input type="number" id="owner-price" placeholder="e.g. 2000000" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
+          </div>
+        </div>
+        <div class="p-3 bg-brand-50 rounded-xl border border-brand-100 text-[11px] text-brand-900">
+          <strong>Note:</strong> We strictly verify that you are the direct owner or designated caretaker to prevent agents from sneaking onto the portal.
         </div>
       </div>
 
-      <div id="quiz-result-box" class="hidden p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs"></div>
-
-      <button onclick="evaluateEligibility()" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/20 transition-all">
-        Calculate My Eligibility
+      <button onclick="submitLandlordListing()" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/20 transition-all flex items-center justify-center gap-2">
+        <i data-lucide="send" class="w-4 h-4"></i> Submit Listing to Verification Desk
       </button>
     </div>
   </div>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- ================= JAVASCRIPT ================= -->
   <script>
-    const PROPERTIES = [
+    const DIRECT_PROPERTIES = [
       {
-        id: "nr-01",
-        title: "Marula Park 2-Bedroom Suite",
+        id: "nr-direct-01",
+        title: "Modern 2-Bedroom Serviced Apartment",
         location: "Lekki",
-        subLocation: "Lagos New Town, Lekki-Epe Expressway",
-        price: 38000000,
-        monthlyFrom: 395000,
-        downFrom: 1900000,
+        subLocation: "Agungi, Lekki Expressway, Lagos",
+        annualRent: 3000000,
+        serviced: "Serviced • 24hr Light",
         beds: 2,
         baths: 2,
-        titleType: "Governor's Consent",
-        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-02",
-        title: "Sangotedo Green Oak Terrace",
-        location: "Sangotedo",
-        subLocation: "Behind Novare Mall, Sangotedo",
-        price: 52000000,
-        monthlyFrom: 540000,
-        downFrom: 2600000,
-        beds: 3,
-        baths: 3,
-        titleType: "C of O (Certificate of Occupancy)",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-03",
-        title: "Karsana Diplomatic Duplex",
-        location: "Abuja",
-        subLocation: "Karsana District, Phase 3, Abuja",
-        price: 65000000,
-        monthlyFrom: 680000,
-        downFrom: 3250000,
-        beds: 4,
-        baths: 4,
-        titleType: "FCDA Right of Occupancy",
-        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-04",
-        title: "Ikeja GRA Horizon Apartment",
-        location: "Ikeja",
-        subLocation: "Sobobw Arobiodu, Ikeja GRA",
-        price: 78000000,
-        monthlyFrom: 810000,
-        downFrom: 3900000,
-        beds: 3,
-        baths: 3,
-        titleType: "Federal C of O",
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-05",
-        title: "Orchid Coastal Maisonette",
-        location: "Lekki",
-        subLocation: "Orchid Road, 2nd Tollgate, Lekki",
-        price: 48000000,
-        monthlyFrom: 495000,
-        downFrom: 2400000,
-        beds: 2,
-        baths: 3,
-        titleType: "Governor's Consent",
+        landlordName: "Engr. Babatunde (Direct Owner)",
         image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
       },
       {
-        id: "nr-06",
-        title: "Guzape Viewpoint Residence",
+        id: "nr-direct-02",
+        title: "Spacious 1-Bedroom (Room & Parlour)",
+        location: "Yaba",
+        subLocation: "Akoka, Near UNILAG Gate, Yaba, Lagos",
+        annualRent: 1400000,
+        serviced: "Prepaid Meter • Secure Compound",
+        beds: 1,
+        baths: 1,
+        landlordName: "Mrs. Okonjo (Direct Landlady)",
+        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-direct-03",
+        title: "Executive 3-Bedroom Flat with BQ",
+        location: "Ikeja",
+        subLocation: "Adeniyi Jones, Ikeja Mainland",
+        annualRent: 4500000,
+        serviced: "Gated Estate • Water Treatment",
+        beds: 3,
+        baths: 3,
+        landlordName: "Alhaji Danladi (Direct Landlord)",
+        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-direct-04",
+        title: "Self-Contain Studio Apartment",
+        location: "Yaba",
+        subLocation: "Sabo, Commercial Avenue, Yaba",
+        annualRent: 850000,
+        serviced: "Tiled • Borehole Water",
+        beds: 1,
+        baths: 1,
+        landlordName: "Pastor Femi (Direct Owner)",
+        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-direct-05",
+        title: "Luxury 2-Bedroom Apartment",
         location: "Abuja",
-        subLocation: "Guzape Hills, Abuja",
-        price: 92000000,
-        monthlyFrom: 960000,
-        downFrom: 4600000,
-        beds: 4,
-        baths: 5,
-        titleType: "FCDA C of O",
-        image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+        subLocation: "Wuse 2, Near Aminu Kano Crescent, Abuja",
+        annualRent: 3800000,
+        serviced: "Standby Gen • CCTV Security",
+        beds: 2,
+        baths: 2,
+        landlordName: "Barrister Usman (Direct Owner)",
+        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "nr-direct-06",
+        title: "Cozy 3-Bedroom Terrace Duplex",
+        location: "Lekki",
+        subLocation: "Orchid Road, 2nd Tollgate, Lekki",
+        annualRent: 4200000,
+        serviced: "Private Car Park • Gated Security",
+        beds: 3,
+        baths: 4,
+        landlordName: "Chief Nnamdi (Direct Owner)",
+        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
       }
     ];
 
@@ -420,32 +414,18 @@
       return '₦' + Number(Math.round(num)).toLocaleString('en-NG');
     }
 
-    function runCalculator() {
-      const propVal = parseFloat(document.getElementById('input-prop-val').value);
-      const downPct = parseFloat(document.getElementById('select-down-pct').value);
-      const tenorYears = parseFloat(document.getElementById('select-tenor').value);
-      const totalMonths = tenorYears * 12;
+    function calculateSavings() {
+      const rent = parseFloat(document.getElementById('input-annual-rent').value);
+      document.getElementById('label-annual-rent').textContent = `${formatNgn(rent)} / year`;
 
-      document.getElementById('label-prop-val').textContent = formatNgn(propVal);
-      document.getElementById('label-down-pct').textContent = `${downPct * 100}% (${formatNgn(propVal * downPct)})`;
-      document.getElementById('label-tenor-val').textContent = `${tenorYears} Years (${totalMonths} Mos)`;
+      const agentFee = rent * 0.10;
+      const legalFee = rent * 0.10;
+      const inspectionEstimate = 10000;
+      const totalSaved = agentFee + legalFee + inspectionEstimate;
 
-      const downPayment = propVal * downPct;
-      const principalRemaining = propVal - downPayment;
-
-      const targetEquityAccumulation = principalRemaining * 0.40;
-      const monthlyEquityCredit = targetEquityAccumulation / totalMonths;
-      const monthlyRentPortion = (propVal * 0.075) / 12;
-      const totalMonthlyCommitment = monthlyRentPortion + monthlyEquityCredit;
-      const totalEquityBuiltOverTerm = downPayment + (monthlyEquityCredit * totalMonths);
-      const minRequiredSalary = totalMonthlyCommitment / 0.33;
-
-      document.getElementById('output-monthly-total').innerHTML = `${formatNgn(totalMonthlyCommitment)}<span class="text-xs text-slate-400 font-normal">/mo</span>`;
-      document.getElementById('output-equity-credit').textContent = `${formatNgn(monthlyEquityCredit)}/mo`;
-      document.getElementById('output-rent-portion').textContent = `${formatNgn(monthlyRentPortion)}/mo`;
-      document.getElementById('output-down-payment').textContent = formatNgn(downPayment);
-      document.getElementById('output-total-equity').textContent = formatNgn(totalEquityBuiltOverTerm);
-      document.getElementById('output-min-income').textContent = `${formatNgn(minRequiredSalary)}/mo`;
+      document.getElementById('output-agent-fee').textContent = formatNgn(agentFee);
+      document.getElementById('output-legal-fee').textContent = formatNgn(legalFee);
+      document.getElementById('output-total-saved').textContent = formatNgn(totalSaved);
     }
 
     function renderProperties(list) {
@@ -454,28 +434,35 @@
         <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-brand-500 transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
           <div class="relative aspect-video">
             <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" />
-            <span class="absolute top-3 left-3 bg-brand-950/80 backdrop-blur-md text-white font-extrabold text-[9px] uppercase px-2.5 py-1 rounded-full">
-              ${item.titleType}
+            <span class="absolute top-3 left-3 bg-brand-950/85 backdrop-blur-md text-emerald-300 font-extrabold text-[9px] uppercase px-3 py-1 rounded-full flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Verified Landlord (0% Fee)
             </span>
           </div>
+
           <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
             <div>
               <div class="flex items-center gap-1 text-[11px] font-bold text-slate-400">
                 <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-600"></i> ${item.subLocation}
               </div>
               <h3 class="font-display font-bold text-base text-slate-900 mt-1">${item.title}</h3>
+              
               <div class="flex items-center gap-3 mt-2 text-xs text-slate-500 font-medium">
-                <span>${item.beds} Bedrooms</span> • <span>${item.baths} Bathrooms</span>
+                <span>${item.beds} Bed</span> • <span>${item.baths} Bath</span> • <span class="text-brand-700 font-bold">${item.serviced}</span>
+              </div>
+
+              <div class="mt-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100 text-[11px] text-slate-600 flex items-center gap-1.5">
+                <i data-lucide="user-check" class="w-3.5 h-3.5 text-brand-600"></i>
+                <span>Listed by: <strong>${item.landlordName}</strong></span>
               </div>
             </div>
 
             <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <span class="text-[10px] text-slate-400 block font-bold uppercase">Move in from</span>
-                <span class="text-base font-display font-black text-brand-600">${formatNgn(item.monthlyFrom)}<span class="text-xs text-slate-400 font-normal">/mo</span></span>
+                <span class="text-[10px] text-slate-400 block font-bold uppercase">Pure Rent / Year</span>
+                <span class="text-base font-display font-black text-brand-600">${formatNgn(item.annualRent)}<span class="text-xs text-slate-400 font-normal">/yr</span></span>
               </div>
-              <a href="https://wa.me/2348000000000?text=${encodeURIComponent('Hello NaijaRent Beta, I want to book an inspection for: ' + item.title)}" target="_blank" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-brand-600 text-white font-bold text-xs transition-colors">
-                Book Tour
+              <a href="https://wa.me/2348000000000?text=${encodeURIComponent('Hello NaijaRent, I want to arrange a free direct inspection for: ' + item.title + ' at ' + item.subLocation)}" target="_blank" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 shadow-md shadow-brand-600/20">
+                <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Inspect
               </a>
             </div>
           </div>
@@ -485,68 +472,61 @@
     }
 
     function filterProperties(loc) {
-      if (loc === 'All') renderProperties(PROPERTIES);
-      else renderProperties(PROPERTIES.filter(p => p.location === loc));
+      if (loc === 'All') renderProperties(DIRECT_PROPERTIES);
+      else renderProperties(DIRECT_PROPERTIES.filter(p => p.location === loc));
     }
 
-    function dispatchCalculatorOffer() {
-      const propVal = document.getElementById('label-prop-val').textContent;
-      const downPct = document.getElementById('label-down-pct').textContent;
-      const tenor = document.getElementById('label-tenor-val').textContent;
-      const monthly = document.getElementById('output-monthly-total').textContent;
+    function executeHeroSearch() {
+      const loc = document.getElementById('hero-loc').value;
+      const type = document.getElementById('hero-type').value;
 
-      const text = `Hello NaijaRent Beta, I ran an equity simulation on your portal:
-✦ Property Value: ${propVal}
-✦ Down Commitment: ${downPct}
-✦ Tenor: ${tenor}
-✦ Monthly Equity Plan: ${monthly}
-Please share available matched inventory and eligibility terms.`;
+      let filtered = DIRECT_PROPERTIES;
+      if (loc !== 'All') {
+        filtered = filtered.filter(p => p.location === loc);
+      }
+      if (type !== 'All') {
+        filtered = filtered.filter(p => p.beds === parseInt(type));
+      }
 
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank');
+      renderProperties(filtered);
+      document.getElementById('properties-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function openEligibilityModal() {
-      document.getElementById('eligibility-modal').classList.remove('hidden');
-      document.getElementById('eligibility-modal').classList.add('flex');
+    function openLandlordModal() {
+      document.getElementById('landlord-modal').classList.remove('hidden');
+      document.getElementById('landlord-modal').classList.add('flex');
     }
 
-    function closeEligibilityModal() {
-      document.getElementById('eligibility-modal').classList.add('hidden');
-      document.getElementById('eligibility-modal').classList.remove('flex');
+    function closeLandlordModal() {
+      document.getElementById('landlord-modal').classList.add('hidden');
+      document.getElementById('landlord-modal').classList.remove('flex');
     }
 
-    function evaluateEligibility() {
-      const income = parseFloat(document.getElementById('quiz-income').value) || 0;
-      const budget = parseFloat(document.getElementById('quiz-budget').value) || 0;
-      const box = document.getElementById('quiz-result-box');
+    function submitLandlordListing() {
+      const name = document.getElementById('owner-name').value;
+      const loc = document.getElementById('owner-loc').value;
+      const type = document.getElementById('owner-type').value;
+      const price = document.getElementById('owner-price').value;
 
-      if (income <= 0) {
-        alert("Please enter a valid monthly salary / income amount.");
+      if (!name || !loc || !price) {
+        alert("Please enter all property details.");
         return;
       }
 
-      const maxAllowableMonthly = income * 0.33;
-      const estimatedMonthlyPayment = (budget * 0.08) / 12 + (budget * 0.35) / 60;
+      const msg = `Hello NaijaRent Beta, I am a landlord wanting to list directly:
+✦ Name: ${name}
+✦ Location: ${loc}
+✦ Apartment: ${type}
+✦ Annual Rent: ₦${price}
+Please send me verification steps.`;
 
-      box.classList.remove('hidden');
-      if (maxAllowableMonthly >= estimatedMonthlyPayment) {
-        box.className = "p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs space-y-1";
-        box.innerHTML = `
-          <strong class="text-brand-600 block text-sm">✓ High Prequalification Readiness</strong>
-          Your monthly allocation of ${formatNgn(maxAllowableMonthly)} easily satisfies the required 33% debt-to-income requirement for this budget tier (${formatNgn(estimatedMonthlyPayment)}/mo).
-        `;
-      } else {
-        box.className = "p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs space-y-1";
-        box.innerHTML = `
-          <strong class="text-amber-700 block text-sm">Notice: Tenor Adjustment Recommended</strong>
-          Under standard 33% income guidelines, an income of ${formatNgn(income)} comfortably supports up to ${formatNgn(maxAllowableMonthly)}/month. We suggest choosing a 10-year tenor or a ₦35M starter home.
-        `;
-      }
+      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`, '_blank');
+      closeLandlordModal();
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      runCalculator();
-      renderProperties(PROPERTIES);
+      calculateSavings();
+      renderProperties(DIRECT_PROPERTIES);
       lucide.createIcons();
     });
   </script>
