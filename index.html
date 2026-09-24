@@ -2,15 +2,15 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>NaijaRent Beta ✦ Rent Directly From Landlords | Zero Agent Fees</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaijaRentBeta 🏠 — See House Before You Pay Agent | Lagos Verified Apartments</title>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS CDN with Class Dark Mode -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -19,514 +19,1555 @@
         extend: {
           colors: {
             brand: {
-              50: '#F0FDF4',
-              100: '#DCFCE7',
-              200: '#BBF7D0',
-              500: '#16A34A',
-              600: '#15803D',
-              700: '#166534',
-              800: '#166534',
-              900: '#14532D',
-              950: '#052E16',
+              50: '#ecfdf3',
+              100: '#d1fae1',
+              400: '#10b981',
+              500: '#00C950',
+              600: '#00a843',
+              700: '#008736',
+              800: '#006629',
+              900: '#00471d',
             },
-            slateDark: {
-              800: '#1E293B',
-              900: '#0F172A',
-              950: '#020617',
+            dark: {
+              bg: '#0A0E17',
+              surface: '#111827',
+              card: '#162032',
+              cardHover: '#1c2940',
+              border: '#24324d',
+              muted: '#94A3B8'
             }
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
           }
         }
       }
     };
   </script>
 
-  <!-- Lucide Icons -->
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Leaflet CSS & JS for Lagos Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    .glass-light {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .dark .glass-light {
+      background: rgba(17, 24, 39, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(36, 50, 77, 0.7);
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid #E2E8F0;
+    }
+    .dark .glass-panel {
+      background: rgba(22, 32, 50, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid #24324D;
+    }
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background: #00C950;
+      cursor: pointer;
+      border: 3px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 201, 80, 0.4);
+      margin-top: -8px;
+    }
+    .dark input[type=range]::-webkit-slider-thumb {
+      border: 3px solid #111827;
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 6px;
+      cursor: pointer;
+      background: #E2E8F0;
+      border-radius: 9999px;
+    }
+    .dark input[type=range]::-webkit-slider-runnable-track {
+      background: #24324D;
+    }
+    .map-price-pill {
+      background: #0B0F17;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 5px 9px;
+      border-radius: 9999px;
+      border: 2px solid #00C950;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      white-space: nowrap;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    .map-price-pill:hover {
+      transform: scale(1.1) translateY(-2px);
+      background: #00C950;
+      color: #0B0F17;
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.2); opacity: 0.2; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+    .pulse-ring {
+      animation: pulse-ring 2.5s infinite ease-in-out;
+    }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #24324D; }
+    ::-webkit-scrollbar-thumb:hover { background: #00C950; }
+  </style>
 </head>
 
-<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-24">
+<body class="bg-slate-50 text-slate-800 dark:bg-dark-bg dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-brand-500 selection:text-white pb-20 md:pb-0">
 
-  <!-- ================= TOP NOTICE BAR ================= -->
-  <div class="bg-brand-950 text-brand-100 text-xs py-2.5 px-4 border-b border-brand-800">
+  <script>
+    if (localStorage.getItem('naija_theme') === 'dark' || (!('naija_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <!-- ================= TOP NOTICE TICKER ================= -->
+  <div class="bg-brand-900 text-brand-100 text-xs py-2 px-4 border-b border-brand-800/40 relative z-50">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="bg-brand-500 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full uppercase tracking-wider">0% Agency Fee</span>
-        <span class="truncate">Stop paying 10% Agent Fee + 10% Agreement Fee. Rent directly from verified landlords.</span>
+      <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-brand-500 text-dark-bg tracking-wide uppercase">Live Update</span>
+        <span id="live-ticker-text" class="truncate font-medium text-emerald-200">
+          📍 Just verified: 1-Bed Mini Flat on Hughes Ave, Alagomeji Yaba (No flood, 21hrs NEPA Band A) • 4 mins ago
+        </span>
       </div>
-      <div class="hidden md:flex items-center gap-4 text-[11px] text-brand-200">
-        <span>Verified Property Ownership</span>
-        <span>•</span>
-        <span>Zero Inspection Fee Scams</span>
+      <div class="hidden sm:flex items-center gap-4 text-[11px] shrink-0">
+        <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-400"></i> Zero Roadside Agent Fees</span>
+        <span class="text-emerald-700">|</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="droplet" class="w-3.5 h-3.5 text-blue-400"></i> Running Borehole Tested</span>
       </div>
     </div>
   </div>
 
   <!-- ================= NAVBAR ================= -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 flex items-center justify-center text-white font-display font-black text-xl shadow-md shadow-brand-500/20">
-          NR
+  <header class="sticky top-0 z-40 glass-light transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 group shrink-0">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-400 flex items-center justify-center shadow-lg shadow-brand-500/25 group-hover:scale-105 transition-transform duration-300 text-white font-extrabold text-2xl">
+          🏠
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <span class="text-xl font-display font-black tracking-tight text-slate-900">NAIJA<span class="text-brand-600">RENT</span></span>
-            <span class="bg-brand-100 text-brand-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded uppercase">Beta</span>
+            <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
+              Naija<span class="text-brand-500">Rent</span>Beta
+            </span>
+            <span class="text-[9px] font-bold uppercase tracking-wider bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 px-1.5 py-0.5 rounded-md">Lagos 2026</span>
           </div>
-          <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest -mt-0.5">Direct Landlord Network</span>
+          <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-tight -mt-0.5">See House Before You Pay Agent</p>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-8 text-xs font-bold text-slate-600">
-        <a href="#properties-section" class="hover:text-brand-600 transition-colors">Direct Homes</a>
-        <a href="#savings-calculator" class="hover:text-brand-600 transition-colors">Agent Fee Savings Calculator</a>
-        <a href="#how-it-works" class="hover:text-brand-600 transition-colors">How It Works</a>
-        <button onclick="openLandlordModal()" class="hover:text-brand-600 transition-colors">List As Landlord</button>
+      <!-- Desktop Nav -->
+      <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#listings" onclick="filterByLocation('All')" class="px-3.5 py-2 rounded-xl hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-dark-card transition-all">All Lagos</a>
+        <a href="#listings" onclick="filterByLocation('Yaba')" class="px-3.5 py-2 rounded-xl hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-dark-card transition-all">Mainland (Yaba)</a>
+        <a href="#listings" onclick="filterByLocation('Lekki')" class="px-3.5 py-2 rounded-xl hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-dark-card transition-all">Island (Lekki)</a>
+        <a href="#how-it-works" class="px-3.5 py-2 rounded-xl hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-dark-card transition-all">How It Works</a>
+        <button onclick="openAgreementModal()" class="px-3.5 py-2 rounded-xl text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all flex items-center gap-1.5">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i> Tenancy Draft
+        </button>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <button onclick="openLandlordModal()" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 text-xs font-bold hover:border-brand-500 hover:text-brand-600 transition-all">
-          <i data-lucide="plus-circle" class="w-4 h-4 text-brand-600"></i> List My Property
+      <!-- Utilities -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Pidgin / English Switcher -->
+        <button id="lang-toggle-btn" onclick="toggleLanguage()" class="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-dark-border text-xs font-bold hover:border-brand-500 flex items-center gap-1.5 bg-white dark:bg-dark-card text-slate-700 dark:text-slate-200 shadow-sm" title="Toggle Naija Pidgin / English">
+          <span class="text-sm">🇳🇬</span>
+          <span id="lang-label">PIDGIN</span>
         </button>
-        <a href="https://wa.me/2348000000000?text=Hello%20NaijaRent%20Beta%2C%20I%20am%20looking%20for%20a%20house%20directly%20from%20a%20landlord" target="_blank" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-brand-500/20 transition-all">
-          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> WhatsApp Desk
-        </a>
+
+        <!-- Dark / Light Mode Switcher -->
+        <button id="theme-toggle-btn" onclick="toggleTheme()" class="w-10 h-10 rounded-xl border border-slate-200 dark:border-dark-border flex items-center justify-center bg-white dark:bg-dark-card text-slate-700 dark:text-slate-200 hover:text-brand-500 shadow-sm transition-all" aria-label="Toggle Theme">
+          <i data-lucide="moon" id="theme-moon-icon" class="w-4 h-4 hidden dark:block text-brand-400"></i>
+          <i data-lucide="sun" id="theme-sun-icon" class="w-4 h-4 block dark:hidden text-amber-500"></i>
+        </button>
+
+        <!-- Saved Drawer -->
+        <button onclick="toggleSavedDrawer()" class="relative w-10 h-10 rounded-xl border border-slate-200 dark:border-dark-border flex items-center justify-center bg-white dark:bg-dark-card text-slate-700 dark:text-slate-200 hover:text-rose-500 shadow-sm transition-all" title="Saved Properties">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+          <span id="saved-badge-count" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center ring-2 ring-white dark:ring-dark-bg">0</span>
+        </button>
+
+        <!-- Command Palette Trigger -->
+        <button onclick="openCommandPalette()" class="hidden md:flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 dark:border-dark-border bg-slate-100 dark:bg-dark-surface text-slate-500 dark:text-slate-400 text-xs font-semibold hover:border-brand-500 transition-all">
+          <i data-lucide="command" class="w-3.5 h-3.5"></i>
+          <span>Search</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-white dark:bg-dark-card text-[10px] font-mono border border-slate-200 dark:border-dark-border">⌘K</kbd>
+        </button>
+
+        <!-- List Your House -->
+        <button onclick="openListHouseModal()" class="hidden sm:inline-flex items-center gap-2 bg-slate-900 hover:bg-black dark:bg-brand-500 dark:hover:bg-brand-600 dark:text-dark-bg text-white px-4 py-2.5 rounded-xl font-bold text-xs tracking-wide shadow-md transition-all">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span data-i18n="list_house_btn">List Your House Free</span>
+        </button>
       </div>
+
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
-  <section class="relative pt-12 sm:pt-20 pb-16 overflow-hidden bg-gradient-to-b from-white to-slate-50 border-b border-slate-200">
+  <section class="relative overflow-hidden pt-8 pb-16 lg:py-20">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-500/15 dark:bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-20 -right-40 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center space-y-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold shadow-sm">
-          <i data-lucide="shield-alert" class="w-4 h-4 text-brand-600"></i> Say NO to Agent Commission & "Registration Fees"
+        <!-- Hero Left Column -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-brand-950/60 border border-brand-500/30 text-emerald-800 dark:text-brand-300 text-xs font-bold shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-brand-500 relative flex items-center justify-center">
+              <span class="absolute w-4 h-4 rounded-full bg-brand-500/40 pulse-ring"></span>
+            </span>
+            <span data-i18n="hero_pill">100% Verified Lagos Rentals • Physical Video Inspected</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.12]">
+            <span data-i18n="hero_h1_1">NO MORE FAKE HOUSE.</span><br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-emerald-400" data-i18n="hero_h1_2">NO MORE AGENT SCAM.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0" data-i18n="hero_subtext">
+            We visit every house, shoot raw 4K video tours, check water pressure, and verify landlord NIN. See raw tours before paying any roadside inspection fee.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="#listings" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-brand-500 hover:bg-brand-600 text-dark-bg font-extrabold px-7 py-4 rounded-2xl shadow-lg shadow-brand-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all text-sm">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span data-i18n="hero_find_btn">Find Verified House</span>
+            </a>
+
+            <button onclick="openDemoTourModal()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-white dark:bg-dark-card hover:bg-slate-100 dark:hover:bg-dark-surface text-slate-800 dark:text-white border border-slate-200 dark:border-dark-border font-bold px-6 py-4 rounded-2xl shadow-sm transition-all text-sm group">
+              <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <i data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
+              </div>
+              <span data-i18n="hero_demo_btn">Watch Demo Uncut Tour</span>
+            </button>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 border-t border-slate-200/80 dark:border-dark-border text-xs text-slate-500 dark:text-slate-400">
+            <div class="flex -space-x-2.5 overflow-hidden">
+              <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-dark-bg object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80" alt="Tenant" />
+              <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-dark-bg object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80" alt="Tenant" />
+              <img class="inline-block h-8 w-8 rounded-full ring-2 ring-white dark:ring-dark-bg object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80" alt="Tenant" />
+            </div>
+            <div>
+              <div class="flex items-center gap-1 text-amber-400 font-bold">
+                ★★★★★ <span class="text-slate-700 dark:text-slate-200 text-xs ml-1 font-extrabold">4.9/5</span>
+              </div>
+              <p><span class="font-bold text-slate-800 dark:text-slate-100">89+ Lagos Tenants</span> housed this quarter without agent fee</p>
+            </div>
+          </div>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
-          Rent Directly From Verified Landlords. <span class="text-brand-600">Zero Agent Fees.</span>
-        </h1>
+        <!-- Hero Right Column: Smartphone Video Mockup -->
+        <div class="lg:col-span-5 flex justify-center">
+          <div class="relative w-full max-w-[340px] sm:max-w-[370px]">
+            <div class="rounded-[44px] p-3.5 bg-slate-900 border-4 border-slate-700/60 shadow-2xl shadow-brand-500/20 text-white relative overflow-hidden">
+              <div class="relative aspect-[9/17] rounded-[34px] overflow-hidden bg-slate-950 flex flex-col justify-between p-4 group">
+                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80" alt="Yaba Apartment" class="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60 pointer-events-none"></div>
 
-        <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Cut out greedy middlemen and shady agents. Talk directly to verified property owners in Lagos and Abuja, schedule free inspections, and save up to ₦500,000+ in fees.
-        </p>
+                <div class="relative z-10 pt-4 flex items-start justify-between">
+                  <div class="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20 flex items-center gap-1.5 text-[11px] font-bold">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span>UNCUT TOUR #284</span>
+                  </div>
+                  <div class="bg-brand-500/90 text-dark-bg font-extrabold px-2 py-0.5 rounded text-[10px] uppercase">
+                    NIN Verified
+                  </div>
+                </div>
 
-        <!-- Quick Search Bar -->
-        <div class="bg-white p-3 sm:p-4 rounded-2xl shadow-xl border border-slate-200/90 max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-3">
-          <div class="flex-1 w-full text-left">
-            <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Location</label>
-            <select id="hero-loc" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
-              <option value="All">All Locations (Lagos & Abuja)</option>
-              <option value="Lekki">Lekki & Ajah</option>
-              <option value="Yaba">Yaba & Surulere</option>
-              <option value="Ikeja">Ikeja Mainland</option>
-              <option value="Abuja">Abuja (Wuse / Garki / Jabi)</option>
-            </select>
+                <button onclick="openDemoTourModal()" class="relative z-10 self-center w-16 h-16 rounded-full bg-brand-500/90 text-dark-bg flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all">
+                  <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
+                </button>
+
+                <div class="relative z-10 space-y-2.5 bg-black/75 backdrop-blur-md p-3.5 rounded-2xl border border-white/10">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-slate-300">Self-Con • Akoka, Yaba</span>
+                    <span class="text-sm font-extrabold text-brand-400">₦650,000<span class="text-[10px] text-slate-400">/yr</span></span>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-[10px] font-semibold text-slate-200">
+                    <div class="bg-white/10 px-2 py-1 rounded flex items-center gap-1">
+                      <i data-lucide="zap" class="w-3 h-3 text-amber-400"></i> Band A (22 hrs)
+                    </div>
+                    <div class="bg-white/10 px-2 py-1 rounded flex items-center gap-1">
+                      <i data-lucide="shield" class="w-3 h-3 text-blue-400"></i> Dry Ground / No Flood
+                    </div>
+                  </div>
+                  <button onclick="quickWhatsAppContact('Akoka Yaba Modern Self-Con', '650,000')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-md">
+                    <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i> Chat Landlord on WhatsApp
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div class="flex-1 w-full text-left">
-            <label class="block text-[10px] font-extrabold uppercase tracking-wider text-slate-400 mb-1">Apartment Type</label>
-            <select id="hero-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-brand-500">
-              <option value="All">All Bed Types</option>
-              <option value="1">Self-Contain / 1 Bedroom</option>
-              <option value="2">2 Bedroom Flat</option>
-              <option value="3">3 Bedroom Apartment / Duplex</option>
-            </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LAGOS UTILITY CARDS ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between gap-3 shadow-sm hover:border-brand-500 transition-all cursor-pointer" onclick="openFlexPayModal()">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+            <i data-lucide="credit-card" class="w-5 h-5"></i>
           </div>
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 dark:text-white" data-i18n="flex_card_title">Pay Small Small (Monthly Rent)</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400" data-i18n="flex_card_sub">Split yearly Lagos rent into 12 easy monthly deductions</p>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-brand-500 bg-brand-500/10 px-2 py-1 rounded-lg shrink-0">Calculate</span>
+      </div>
 
-          <button onclick="executeHeroSearch()" class="w-full sm:w-auto px-6 py-3.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition-all sm:mt-5">
-            <i data-lucide="search" class="w-4 h-4"></i> Search Homes
+      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between gap-3 shadow-sm hover:border-brand-500 transition-all cursor-pointer" onclick="openCommuteModal()">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+            <i data-lucide="navigation" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 dark:text-white">Lagos Commute & Living Cost</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Estimate traffic to VI, Marina, or Ikeja Secretariat</p>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-blue-500 bg-blue-500/10 px-2 py-1 rounded-lg shrink-0">Explore</span>
+      </div>
+
+      <div class="glass-panel p-4 rounded-2xl flex items-center justify-between gap-3 shadow-sm hover:border-brand-500 transition-all cursor-pointer" onclick="openAgreementModal()">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <i data-lucide="file-check-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 dark:text-white">Free Lagos Tenancy Draft</h4>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">Standard legal draft with caution fee protection</p>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-1 rounded-lg shrink-0">Download</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= SEARCH & FILTER CONTROL BAR ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8" id="listings">
+    <div class="glass-panel p-5 rounded-3xl shadow-lg border border-slate-200 dark:border-dark-border space-y-4">
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 flex items-center gap-1">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-500"></i> <span data-i18n="filter_loc_label">Lagos Neighborhood</span>
+          </label>
+          <select id="filter-location" onchange="runLiveFilters()" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+            <option value="All">All Lagos (Mainland & Island)</option>
+            <option value="Yaba">Yaba (Akoka, Onike, Alagomeji)</option>
+            <option value="Surulere">Surulere (Aguda, Bode Thomas)</option>
+            <option value="Lekki">Lekki Phase 1 & Ikate</option>
+            <option value="Ikeja">Ikeja (GRA, Allen, Maryland)</option>
+            <option value="Gbagada">Gbagada Phase 1 & 2</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1.5 flex items-center gap-1">
+            <i data-lucide="home" class="w-3.5 h-3.5 text-brand-500"></i> <span data-i18n="filter_type_label">Apartment Type</span>
+          </label>
+          <select id="filter-type" onchange="runLiveFilters()" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+            <option value="All">All Verified Types</option>
+            <option value="Self-con">Self-Contained (Studio)</option>
+            <option value="Mini-flat">Mini-Flat (1-Bedroom)</option>
+            <option value="2-Bed">2-Bedroom Shared Flat</option>
+          </select>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-xs font-bold text-slate-600 dark:text-slate-400 flex items-center gap-1">
+              <i data-lucide="banknote" class="w-3.5 h-3.5 text-brand-500"></i> <span data-i18n="filter_budget_label">Max Yearly Rent</span>
+            </label>
+            <span id="slider-val-label" class="text-xs font-extrabold text-brand-600 dark:text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded-md">₦1,500,000</span>
+          </div>
+          <input type="range" id="filter-budget" min="350000" max="1800000" step="50000" value="1500000" oninput="updateBudgetSlider(this.value)" class="w-full" />
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="toggle-map-btn" onclick="toggleSplitMapView()" class="flex-1 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-surface hover:bg-slate-100 dark:hover:bg-dark-card text-xs font-bold flex items-center justify-center gap-1.5 transition-all text-slate-700 dark:text-slate-200">
+            <i data-lucide="map" class="w-4 h-4 text-brand-500"></i>
+            <span id="map-btn-text">Split Map</span>
+          </button>
+          <button onclick="resetFilters()" class="py-2.5 px-3 rounded-xl border border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-surface hover:bg-slate-100 dark:hover:bg-dark-card text-xs font-bold text-slate-500" title="Reset Filters">
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="pt-2 border-t border-slate-100 dark:border-dark-border/60 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-slate-500 dark:text-slate-400 font-semibold text-[11px]">Instant Badges:</span>
+          <button onclick="toggleQuickFilterTag('nepa')" id="tag-nepa" class="px-2.5 py-1 rounded-full border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-surface text-slate-700 dark:text-slate-300 font-semibold hover:border-brand-500 transition-all flex items-center gap-1">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i> NEPA Band A
+          </button>
+          <button onclick="toggleQuickFilterTag('flood')" id="tag-flood" class="px-2.5 py-1 rounded-full border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-surface text-slate-700 dark:text-slate-300 font-semibold hover:border-brand-500 transition-all flex items-center gap-1">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-500"></i> 100% Flood Free
+          </button>
+          <button onclick="toggleQuickFilterTag('prepaid')" id="tag-prepaid" class="px-2.5 py-1 rounded-full border border-slate-200 dark:border-dark-border bg-white dark:bg-dark-surface text-slate-700 dark:text-slate-300 font-semibold hover:border-brand-500 transition-all flex items-center gap-1">
+            <i data-lucide="gauge" class="w-3.5 h-3.5 text-emerald-500"></i> Solo Prepaid
           </button>
         </div>
 
+        <div class="flex items-center gap-1 bg-slate-100 dark:bg-dark-surface p-1 rounded-xl border border-slate-200 dark:border-dark-border">
+          <span class="text-[11px] font-bold text-slate-500 px-2">Show Rent As:</span>
+          <button id="rent-mode-yearly" onclick="setRentDisplayMode('yearly')" class="px-2.5 py-1 rounded-lg text-[11px] font-extrabold bg-white dark:bg-brand-500 text-slate-900 dark:text-dark-bg shadow-sm">Yearly (₦)</button>
+          <button id="rent-mode-monthly" onclick="setRentDisplayMode('monthly')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-brand-500">Monthly Flex</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= LISTINGS & SPLIT MAP FEED ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+    <div id="content-container" class="grid grid-cols-1 gap-6 transition-all duration-300">
+      
+      <div id="listings-wrapper" class="w-full">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-i18n="verified_heading">Verified Lagos Apartments</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" id="results-count-text">Showing 6 verified apartments with raw video inspections</p>
+          </div>
+          <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
+            ⚡ 0% Caution Markup
+          </span>
+        </div>
+
+        <div id="listings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <div id="empty-state" class="hidden text-center py-16 glass-panel rounded-3xl p-8 max-w-md mx-auto">
+          <div class="w-16 h-16 rounded-full bg-brand-500/10 text-brand-500 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="search-x" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-base font-bold text-slate-900 dark:text-white">No houses matched your exact filter</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-5">Try increasing your budget or select "All Lagos".</p>
+          <button onclick="resetFilters()" class="bg-brand-500 hover:bg-brand-600 text-dark-bg font-extrabold px-5 py-2.5 rounded-xl text-xs">Reset All Filters</button>
+        </div>
+      </div>
+
+      <div id="split-map-panel" class="hidden w-full h-[650px] sticky top-24 rounded-3xl overflow-hidden border border-slate-200 dark:border-dark-border shadow-xl">
+        <div id="leaflet-map" class="w-full h-full"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS (3 STEPS) ================= -->
+  <section class="py-16 bg-slate-100/70 dark:bg-dark-surface/50 border-y border-slate-200 dark:border-dark-border" id="how-it-works">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-500/10 px-3 py-1 rounded-full border border-brand-500/20">The NaijaRentBeta Way</span>
+        <h2 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white mt-3" data-i18n="how_h2">How To Rent Without Agent Wahala</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mt-2" data-i18n="how_sub">Three simple steps to secure your next home in Lagos without giving roadside agents ₦10,000 inspection fees.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-dark-border hover:border-brand-500 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center font-extrabold text-xl mb-4">1</div>
+          <h3 class="text-base font-extrabold text-slate-900 dark:text-white" data-i18n="step1_title">Watch Uncut Video Tour</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed" data-i18n="step1_desc">No wide-angle camera tricks. Watch our staff turn on the bathroom tap, check the prepaid meter box, and film the compound gate and street gutters.</p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-dark-border hover:border-brand-500 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center font-extrabold text-xl mb-4">2</div>
+          <h3 class="text-base font-extrabold text-slate-900 dark:text-white" data-i18n="step2_title">Chat Verified Landlord on WhatsApp</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed" data-i18n="step2_desc">Click directly into WhatsApp to speak with the vetted property owner or direct caretaker whose National ID (NIN) has been physically confirmed.</p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-3xl border border-slate-200 dark:border-dark-border hover:border-brand-500 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-brand-500/15 text-brand-600 dark:text-brand-400 flex items-center justify-center font-extrabold text-xl mb-4">3</div>
+          <h3 class="text-base font-extrabold text-slate-900 dark:text-white" data-i18n="step3_title">Pay & Move In — ₦0 Agent Fee</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed" data-i18n="step3_desc">Sign our standard tenancy agreement draft, pay yearly or split monthly via NaijaRentBeta Flex, collect your keys, and enter your apartment peacefully.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= AGENT FEE SAVINGS CALCULATOR ================= -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 relative z-20" id="savings-calculator">
-    <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200/80">
-      
-      <div class="border-b border-slate-100 pb-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <span class="text-xs font-black uppercase tracking-wider text-brand-600 flex items-center gap-1.5">
-            <i data-lucide="calculator" class="w-4 h-4"></i> Extortion Breakdown Engine
-          </span>
-          <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 mt-1">See How Much Nigerian Agents Are Stealing From You</h2>
+  <!-- ================= SOCIAL PROOF STATS ================= -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="bg-gradient-to-tr from-slate-900 to-slate-950 text-white p-8 sm:p-12 rounded-3xl border border-slate-800 relative overflow-hidden shadow-2xl">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 tracking-tight">127+</div>
+          <div class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">Physical Verified Houses</div>
         </div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-50 text-brand-700 text-xs font-bold">
-          <i data-lucide="check-circle" class="w-4 h-4"></i> NaijaRent Fee = ₦0
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">89</div>
+          <div class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">Happy Lagos Tenants</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-brand-400 tracking-tight">₦2.3M+</div>
+          <div class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">Agent Fees Saved</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">0 Naira</div>
+          <div class="text-xs font-bold text-slate-300 mt-1 uppercase tracking-wider">Roadside Reg Fee</div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-        
-        <!-- Interactive Rent Slider -->
-        <div class="lg:col-span-7 space-y-6">
-          <div>
-            <div class="flex justify-between items-center mb-2">
-              <label class="text-xs font-bold uppercase tracking-wider text-slate-500">Your Annual House Rent</label>
-              <span id="label-annual-rent" class="font-display font-bold text-xl text-slate-900">₦2,500,000 / year</span>
-            </div>
-            <input type="range" id="input-annual-rent" min="600000" max="15000000" step="100000" value="2500000" oninput="calculateSavings()" class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600" />
-            <div class="flex justify-between text-[11px] text-slate-400 mt-1.5 font-medium">
-              <span>₦600k (Self-contain)</span>
-              <span>₦2.5M (Standard 2-Bed)</span>
-              <span>₦15M (Luxury Duplex)</span>
-            </div>
-          </div>
+      <div class="mt-10 pt-8 border-t border-slate-800 text-center max-w-xl mx-auto">
+        <p class="text-sm italic text-slate-300">
+          “I found my self-con near UNILAG back gate in 2 days. The raw video showed the water pressure and compound gate exactly as it was. No roadside agent took ₦10,000 inspection fee from me.”
+        </p>
+        <div class="mt-3 flex items-center justify-center gap-2 text-xs font-bold text-brand-400">
+          <span>— Tunde Bakare</span>
+          <span class="text-slate-600">•</span>
+          <span class="text-slate-400 font-normal">Software Engineer, Akoka Yaba</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-          <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200 text-xs text-amber-950 space-y-2">
-            <div class="font-bold flex items-center gap-2 text-amber-800">
-              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600"></i> What Nigerian "Agents" usually force you to pay:
-            </div>
-            <ul class="list-disc list-inside space-y-1 text-slate-700">
-              <li><strong>Agency Fee:</strong> 10% of annual rent directly into agent pocket.</li>
-              <li><strong>Legal / Agreement Fee:</strong> Another 10% just to print a paper lease.</li>
-              <li><strong>"Inspection Fee / Fuel Money":</strong> ₦5,000 - ₦10,000 per tour before you even see the house.</li>
-            </ul>
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white dark:bg-dark-surface border-t border-slate-200 dark:border-dark-border pt-12 pb-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-brand-500 flex items-center justify-center text-white font-extrabold text-lg">🏠</div>
+            <span class="text-lg font-extrabold tracking-tight text-slate-900 dark:text-white">NaijaRentBeta</span>
           </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+            Lagos’ verified rental portal. Raw uncut video tours, running water checks, and zero roadside agent fees.
+          </p>
         </div>
 
-        <!-- Savings Output Card -->
-        <div class="lg:col-span-5 bg-slateDark-900 text-white p-7 sm:p-8 rounded-3xl space-y-5 shadow-xl relative overflow-hidden">
-          <div class="absolute -right-12 -bottom-12 w-44 h-44 bg-brand-500/10 rounded-full blur-2xl"></div>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Popular Hubs</h4>
+          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <li><a href="#listings" onclick="filterByLocation('Yaba')" class="hover:text-brand-500">Yaba (Akoka / Onike)</a></li>
+            <li><a href="#listings" onclick="filterByLocation('Surulere')" class="hover:text-brand-500">Surulere (Aguda / Bode Thomas)</a></li>
+            <li><a href="#listings" onclick="filterByLocation('Lekki')" class="hover:text-brand-500">Lekki Phase 1</a></li>
+            <li><a href="#listings" onclick="filterByLocation('Ikeja')" class="hover:text-brand-500">Ikeja (GRA / Maryland)</a></li>
+          </ul>
+        </div>
 
-          <div>
-            <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-400">Total Money Saved With NaijaRent</span>
-            <div id="output-total-saved" class="text-3xl sm:text-4xl font-display font-extrabold text-white mt-1">₦510,000</div>
-            <span class="text-xs text-slate-400">Kept in your pocket instead of given to agents</span>
-          </div>
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Free Tools</h4>
+          <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <li><button onclick="openAgreementModal()" class="hover:text-brand-500 text-left">Tenancy Agreement Draft</button></li>
+            <li><button onclick="openFlexPayModal()" class="hover:text-brand-500 text-left">Pay Small Small Calculator</button></li>
+            <li><button onclick="openCommuteModal()" class="hover:text-brand-500 text-left">Commute & Traffic Calculator</button></li>
+            <li><button onclick="toggleBetaBot()" class="hover:text-brand-500 text-left">BetaBot AI Assistant</button></li>
+          </ul>
+        </div>
 
-          <div class="space-y-2.5 pt-3 border-t border-slate-800 text-xs">
-            <div class="flex justify-between items-center">
-              <span class="text-slate-400">Agent Fee Saved (10%):</span>
-              <span id="output-agent-fee" class="font-bold text-rose-400 line-through">₦250,000</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-slate-400">Agreement Fee Saved (10%):</span>
-              <span id="output-legal-fee" class="font-bold text-rose-400 line-through">₦250,000</span>
-            </div>
-            <div class="flex justify-between items-center">
-              <span class="text-slate-400">Inspection & Mobilization Scams:</span>
-              <span class="font-bold text-rose-400 line-through">₦10,000</span>
-            </div>
-            <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-              <span class="text-white font-bold">NaijaRent Platform Fee:</span>
-              <span class="font-display font-black text-emerald-400">₦0 (FREE)</span>
-            </div>
-          </div>
-
-          <a href="#properties-section" class="w-full py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-500/30 transition-all">
-            <i data-lucide="home" class="w-4 h-4"></i> Browse Zero-Fee Apartments Now
+        <div>
+          <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Direct Support</h4>
+          <a href="https://wa.me/2348000000000?text=Hello%20NaijaRentBeta%2C%20I%20need%20a%20verified%20apartment" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
+            <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> WhatsApp Field Desk
           </a>
         </div>
-
       </div>
 
-    </div>
-  </section>
-
-  <!-- ================= DIRECT HOMES DIRECTORY ================= -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24" id="properties-section">
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-      <div>
-        <span class="text-xs font-bold uppercase tracking-wider text-brand-600">100% Direct From Property Owners</span>
-        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900">Available Verified Homes</h2>
-      </div>
-
-      <!-- Filter Buttons -->
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
-        <button onclick="filterProperties('All')" class="px-3.5 py-2 rounded-xl bg-slate-900 text-white">All Homes</button>
-        <button onclick="filterProperties('Lekki')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Lekki / Ajah</button>
-        <button onclick="filterProperties('Yaba')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Yaba / Mainland</button>
-        <button onclick="filterProperties('Ikeja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Ikeja GRA</button>
-        <button onclick="filterProperties('Abuja')" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-brand-500 transition-colors">Abuja</button>
+      <div class="pt-8 border-t border-slate-200 dark:border-dark-border text-center text-xs text-slate-500">
+        © 2026 NaijaRentBeta Lagos. Zero agent fee guarantee.
       </div>
     </div>
+  </footer>
 
-    <!-- Properties Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="properties-grid"></div>
-  </section>
+  <!-- ================= MOBILE FIXED BOTTOM APP BAR ================= -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-dark-bg/95 backdrop-blur-lg border-t border-slate-200 dark:border-dark-border py-2 px-3 flex items-center justify-around text-[10px] font-bold text-slate-600 dark:text-slate-400">
+    <a href="#" class="flex flex-col items-center gap-1 text-brand-600 dark:text-brand-400">
+      <i data-lucide="compass" class="w-4 h-4"></i>
+      <span>Explore</span>
+    </a>
+    <button onclick="toggleSplitMapView()" class="flex flex-col items-center gap-1 hover:text-brand-500">
+      <i data-lucide="map" class="w-4 h-4"></i>
+      <span>Map</span>
+    </button>
+    <button onclick="toggleSavedDrawer()" class="flex flex-col items-center gap-1 hover:text-brand-500 relative">
+      <i data-lucide="heart" class="w-4 h-4"></i>
+      <span>Saved</span>
+      <span id="mobile-saved-badge" class="hidden absolute -top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
+    </button>
+    <button onclick="openFlexPayModal()" class="flex flex-col items-center gap-1 hover:text-brand-500">
+      <i data-lucide="credit-card" class="w-4 h-4"></i>
+      <span>Monthly</span>
+    </button>
+    <button onclick="toggleBetaBot()" class="flex flex-col items-center gap-1 text-emerald-600 dark:text-emerald-400">
+      <i data-lucide="bot" class="w-4 h-4"></i>
+      <span>BetaBot</span>
+    </button>
+  </nav>
 
-  <!-- ================= HOW IT WORKS ================= -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 mb-16" id="how-it-works">
-    <div class="text-center max-w-2xl mx-auto mb-12">
-      <span class="text-xs font-bold uppercase tracking-wider text-brand-600">The Honest Way to Rent</span>
-      <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 mt-1">How NaijaRent Eliminates Agents</h2>
-    </div>
+  <!-- ================= FLOATING BETABOT AI WIDGET ================= -->
+  <div class="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40">
+    <button id="betabot-toggle-btn" onclick="toggleBetaBot()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 text-dark-bg font-extrabold flex items-center justify-center shadow-xl shadow-brand-500/30 hover:scale-105 active:scale-95 transition-all">
+      <i data-lucide="bot" class="w-7 h-7"></i>
+    </button>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">1</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Landlords Upload Proof</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Property owners list their houses directly and upload proof of ownership (Utility bill / deed). No random street agents allowed.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">2</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Browse & Video Tour</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">View clean pictures, exact location landmarks, and genuine rental pricing without hidden agent markups.</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">3</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Free Physical Inspection</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Schedule a free tour directly with the property caretaker or landlord. Never pay a kobo for "inspection fee."</p>
-      </div>
-      <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-display font-black text-lg">4</div>
-        <h3 class="font-display font-bold text-sm text-slate-900">Pay Direct & Move In</h3>
-        <p class="text-xs text-slate-500 leading-relaxed">Sign the standard tenancy agreement, pay your pure rent directly into the owner's bank account, and get your keys.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= LANDLORD LISTING MODAL ================= -->
-  <div id="landlord-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-white w-full max-w-lg rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
-      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-        <div>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-brand-600">Property Owners Only</span>
-          <h3 class="text-lg font-display font-bold text-slate-900">List Your Apartment Direct</h3>
+    <div id="betabot-window" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[380px] h-[520px] glass-panel rounded-3xl shadow-2xl border border-slate-200 dark:border-dark-border flex flex-col overflow-hidden">
+      <div class="p-3.5 bg-brand-500 text-dark-bg font-extrabold flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-dark-bg text-brand-400 flex items-center justify-center font-bold text-xs">🤖</div>
+          <div>
+            <h4 class="text-xs font-black">BetaBot Lagos AI</h4>
+            <p class="text-[10px] text-brand-950 font-semibold">Trained on Lagos Tenancy & Rents</p>
+          </div>
         </div>
-        <button onclick="closeLandlordModal()" class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400 hover:text-slate-700">
+        <button onclick="toggleBetaBot()" class="w-6 h-6 rounded-lg bg-dark-bg/20 flex items-center justify-center text-dark-bg">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Landlord / Caretaker Full Name</label>
-          <input type="text" id="owner-name" placeholder="e.g. Chief Adeleke" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
-        </div>
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Property Location & Area</label>
-          <input type="text" id="owner-loc" placeholder="e.g. Off Agungi Road, Lekki" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Bedroom Type</label>
-            <select id="owner-type" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500">
-              <option>1 Bedroom Mini Flat</option>
-              <option>2 Bedroom Flat</option>
-              <option>3 Bedroom Flat</option>
-              <option>Self-Contain / Studio</option>
-            </select>
+      <div id="betabot-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
+        <div class="flex items-start gap-2">
+          <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">🤖</div>
+          <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200">
+            How far! I be <strong>BetaBot</strong>. Ask me anything about Lagos rent, flood areas for rainy season, prepaid meter scams, or budget for Yaba, Lekki and Surulere.
           </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Annual Rent (₦)</label>
-            <input type="number" id="owner-price" placeholder="e.g. 2000000" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-slate-900 focus:outline-none focus:border-brand-500" />
-          </div>
-        </div>
-        <div class="p-3 bg-brand-50 rounded-xl border border-brand-100 text-[11px] text-brand-900">
-          <strong>Note:</strong> We strictly verify that you are the direct owner or designated caretaker to prevent agents from sneaking onto the portal.
         </div>
       </div>
 
-      <button onclick="submitLandlordListing()" class="w-full py-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/20 transition-all flex items-center justify-center gap-2">
-        <i data-lucide="send" class="w-4 h-4"></i> Submit Listing to Verification Desk
+      <div class="px-3 py-2 bg-slate-50 dark:bg-dark-surface/60 border-t border-slate-200 dark:border-dark-border flex gap-1.5 overflow-x-auto text-[10px] whitespace-nowrap">
+        <button onclick="askPresetBot('Does Aguda Surulere flood during rainy season?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">Aguda Flooding? 🌊</button>
+        <button onclick="askPresetBot('What is normal rent for Akoka Yaba self-con in 2026?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">Yaba Rent Rates 💰</button>
+      </div>
+
+      <div class="p-2.5 bg-white dark:bg-dark-card border-t border-slate-200 dark:border-dark-border flex items-center gap-2">
+        <input id="betabot-input" type="text" placeholder="Ask BetaBot anything about Lagos..." class="flex-1 bg-slate-100 dark:bg-dark-surface px-3 py-2 rounded-xl text-xs text-slate-800 dark:text-slate-100 focus:outline-none" onkeydown="if(event.key === 'Enter') sendBetaBotMsg()" />
+        <button onclick="sendBetaBotMsg()" class="w-8 h-8 rounded-xl bg-brand-500 text-dark-bg flex items-center justify-center shrink-0">
+          <i data-lucide="send" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= VIDEO TOUR MODAL & 360° PANNER ================= -->
+  <div id="video-tour-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="relative w-full max-w-4xl bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 text-white shadow-2xl flex flex-col my-auto">
+      <div class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+          <h3 id="modal-tour-title" class="text-sm font-bold truncate">Akoka Yaba Modern Self-Con — Raw Inspection</h3>
+        </div>
+        <button onclick="closeVideoModal()" class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="relative aspect-video w-full bg-black overflow-hidden flex items-center justify-center">
+        <div id="video-player-container" class="absolute inset-0 w-full h-full flex items-center justify-center">
+          <img id="modal-tour-img" src="" alt="Room Tour" class="w-full h-full object-cover opacity-90" />
+          
+          <div class="absolute top-4 left-4 space-y-1.5 text-[11px] font-mono bg-black/60 p-2.5 rounded-xl border border-white/10">
+            <div class="text-brand-400 font-bold flex items-center gap-1.5">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> NIN & LAND DEED VERIFIED
+            </div>
+            <div class="text-slate-300">WATER PRESSURE: <span class="text-white font-bold">3.8 BAR (PASSED)</span></div>
+            <div class="text-slate-300">NEPA DISCO FEEDER: <span class="text-amber-400 font-bold">BAND A (21 HRS/DAY)</span></div>
+          </div>
+
+          <button id="modal-play-btn" onclick="toggleTourSimulationPlay()" class="w-20 h-20 rounded-full bg-brand-500/90 text-dark-bg flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all">
+            <i data-lucide="play" id="modal-play-icon" class="w-10 h-10 fill-current ml-1"></i>
+          </button>
+        </div>
+
+        <canvas id="canvas-360" class="hidden absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+      </div>
+
+      <div class="p-4 bg-slate-900 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <button id="btn-view-video" onclick="switchTourModalTab('video')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-500 text-dark-bg flex items-center gap-1.5">
+            <i data-lucide="film" class="w-3.5 h-3.5"></i> Uncut Video
+          </button>
+          <button id="btn-view-360" onclick="switchTourModalTab('360')" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5">
+            <i data-lucide="rotate-3d" class="w-3.5 h-3.5"></i> 360° Panner
+          </button>
+        </div>
+        <button id="modal-whatsapp-action" class="bg-emerald-500 hover:bg-emerald-600 text-dark-bg px-5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> Chat Landlord on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= "PAY SMALL SMALL" (FLEX) MODAL ================= -->
+  <div id="flex-pay-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-lg glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-extrabold">NaijaRentBeta Flex (Pay Small Small)</h3>
+        <button onclick="closeFlexPayModal()" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-dark-card flex items-center justify-center text-slate-500">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-600 dark:text-slate-400 mb-1">Target Lagos Rent (Yearly)</label>
+          <input type="number" id="flex-calc-input" value="650000" step="50000" oninput="calculateFlexMonthly()" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-4 py-2.5 font-bold text-sm text-slate-900 dark:text-white focus:outline-none" />
+        </div>
+        <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/30 space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span>Your Monthly Debit:</span>
+            <span id="flex-monthly-output" class="text-lg font-extrabold text-brand-600 dark:text-brand-400">₦62,290 / mo</span>
+          </div>
+          <div class="flex justify-between items-center text-[11px] text-slate-500">
+            <span>Landlord Gets Upfront:</span>
+            <span class="font-bold text-slate-800 dark:text-slate-200">100% Full 1-Year Rent</span>
+          </div>
+        </div>
+        <button onclick="applyFlexWhatsapp()" class="w-full bg-brand-500 hover:bg-brand-600 text-dark-bg font-extrabold py-3 rounded-2xl text-xs flex items-center justify-center gap-2">
+          Apply on WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TENANCY AGREEMENT DRAFT MODAL ================= -->
+  <div id="agreement-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-2xl glass-panel rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-dark-border">
+        <h3 class="text-base font-extrabold">Standard Lagos Tenancy Agreement Draft</h3>
+        <button onclick="closeAgreementModal()" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-dark-card flex items-center justify-center text-slate-500">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="flex-1 overflow-y-auto py-4 font-mono text-[11px] leading-relaxed text-slate-700 dark:text-slate-300">
+        <div class="bg-slate-50 dark:bg-dark-surface p-4 rounded-xl border border-slate-200 dark:border-dark-border space-y-2">
+          <p class="font-bold text-center">LAGOS STATE RESIDENTIAL TENANCY DRAFT (2011 COMPLIANT)</p>
+          <p>1. <strong>CAUTION REFUND:</strong> Landlord covenants to refund Caution Deposit within 14 days of expiration minus verified damages with receipts.</p>
+          <p>2. <strong>EXCLUSIVE PREPAID METER:</strong> Tenant holds exclusive rights to designated prepaid meter readings without compound surcharge.</p>
+          <p>3. <strong>STATUTORY QUIT NOTICE:</strong> In accordance with Section 13, yearly tenants are entitled to 6 full months notice to quit.</p>
+        </div>
+      </div>
+      <button onclick="window.print()" class="bg-slate-900 hover:bg-black dark:bg-brand-500 dark:text-dark-bg text-white px-5 py-2.5 rounded-xl text-xs font-bold self-end">
+        Print / Save PDF
       </button>
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT ================= -->
+  <!-- ================= COMMUTE MODAL ================= -->
+  <div id="commute-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-md glass-panel rounded-3xl p-6 shadow-2xl border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-extrabold">Lagos Commute & Living Cost</h3>
+        <button onclick="closeCommuteModal()" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-dark-card flex items-center justify-center text-slate-500">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-600 dark:text-slate-400 mb-1">Your Daily Workplace:</label>
+          <select id="commute-destination" onchange="calculateCommute()" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-100">
+            <option value="VI">Victoria Island / Ikoyi</option>
+            <option value="Marina">CMS / Marina Financial District</option>
+            <option value="Ikeja">Ikeja Secretariat / Alausa</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-600 dark:text-slate-400 mb-1">Where You Want to Rent:</label>
+          <select id="commute-origin" onchange="calculateCommute()" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-bold text-slate-800 dark:text-slate-100">
+            <option value="Yaba">Yaba (Akoka / Commercial Ave)</option>
+            <option value="Surulere">Surulere (Aguda / Bode Thomas)</option>
+            <option value="Gbagada">Gbagada Phase 2</option>
+          </select>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-blue-500/10 border border-blue-500/20 space-y-2 mt-2">
+          <div class="flex justify-between items-center">
+            <span>Est. Morning Commute:</span>
+            <span id="commute-time" class="font-extrabold text-blue-600 dark:text-blue-400">35 – 50 mins</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>Daily Danfo / BRT:</span>
+            <span id="commute-danfo" class="font-bold">~₦1,200 roundtrip</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LIST YOUR HOUSE MODAL ================= -->
+  <div id="list-house-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-lg glass-panel rounded-3xl p-6 shadow-2xl border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-dark-border mb-4">
+        <h3 class="text-base font-extrabold">List Your Lagos Property — Free</h3>
+        <button onclick="closeListHouseModal()" class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-dark-card flex items-center justify-center text-slate-500">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <form id="new-listing-form" onsubmit="handleNewListingSubmit(event)" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold mb-1">Apartment Title & Area</label>
+          <input type="text" id="nl-title" required placeholder="e.g. Spacious Self-Con on Hughes Ave, Yaba" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3.5 py-2 text-xs font-semibold" />
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold mb-1">Neighborhood</label>
+            <select id="nl-loc" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-semibold">
+              <option value="Yaba">Yaba</option>
+              <option value="Surulere">Surulere</option>
+              <option value="Lekki">Lekki</option>
+              <option value="Ikeja">Ikeja</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold mb-1">Yearly Rent (₦)</label>
+            <input type="number" id="nl-price" required placeholder="650000" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-semibold" />
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-dark-bg font-extrabold py-3 rounded-2xl text-xs transition-all shadow-lg">
+          Submit for Physical Verification
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= SAVED HOUSES DRAWER ================= -->
+  <div id="saved-drawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-sm glass-panel border-l border-slate-200 dark:border-dark-border shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
+      <h3 class="text-sm font-extrabold flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-rose-500 fill-current"></i> Saved Houses</h3>
+      <button onclick="toggleSavedDrawer()" class="w-7 h-7 rounded-lg bg-slate-100 dark:bg-dark-card flex items-center justify-center text-slate-500">
+        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+    <div id="saved-drawer-items" class="flex-1 overflow-y-auto p-4 space-y-3 text-xs"></div>
+  </div>
+
+  <!-- ================= COMMAND PALETTE ================= -->
+  <div id="cmd-palette" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-start justify-center pt-24 px-4">
+    <div class="w-full max-w-lg glass-panel rounded-2xl shadow-2xl border border-slate-200 dark:border-dark-border overflow-hidden">
+      <div class="p-3 border-b border-slate-200 dark:border-dark-border flex items-center gap-2">
+        <i data-lucide="search" class="w-4 h-4 text-brand-500"></i>
+        <input id="cmd-input" type="text" placeholder="Search areas, price, or apartment type..." class="flex-1 bg-transparent text-xs font-bold text-slate-800 dark:text-slate-100 focus:outline-none" oninput="handleCmdSearch(this.value)" />
+        <kbd class="text-[10px] bg-slate-200 dark:bg-dark-surface px-1.5 py-0.5 rounded font-mono">ESC</kbd>
+      </div>
+      <div id="cmd-results" class="p-2 max-h-72 overflow-y-auto space-y-1 text-xs"></div>
+    </div>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
-    const DIRECT_PROPERTIES = [
+    const DEFAULT_LISTINGS = [
       {
-        id: "nr-direct-01",
-        title: "Modern 2-Bedroom Serviced Apartment",
-        location: "Lekki",
-        subLocation: "Agungi, Lekki Expressway, Lagos",
-        annualRent: 3000000,
-        serviced: "Serviced • 24hr Light",
-        beds: 2,
-        baths: 2,
-        landlordName: "Engr. Babatunde (Direct Owner)",
-        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-direct-02",
-        title: "Spacious 1-Bedroom (Room & Parlour)",
+        id: "lag-01",
+        title: "Self-Con Apartment on Hughes Ave",
         location: "Yaba",
-        subLocation: "Akoka, Near UNILAG Gate, Yaba, Lagos",
-        annualRent: 1400000,
-        serviced: "Prepaid Meter • Secure Compound",
-        beds: 1,
-        baths: 1,
-        landlordName: "Mrs. Okonjo (Direct Landlady)",
-        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80"
+        subArea: "Alagomeji, Yaba",
+        type: "Self-con",
+        price: 550000,
+        monthlyFlex: 51000,
+        lat: 6.5028,
+        lng: 3.3768,
+        images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band A (21 hrs)",
+        nepaBandA: true,
+        floodScore: "9.6/10 Dry Street",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Clear Borehole Tested"
       },
       {
-        id: "nr-direct-03",
-        title: "Executive 3-Bedroom Flat with BQ",
+        id: "lag-02",
+        title: "Modern Executive Mini-Flat with Balcony",
+        location: "Surulere",
+        subArea: "Aguda / Bode Thomas",
+        type: "Mini-flat",
+        price: 850000,
+        monthlyFlex: 78500,
+        lat: 6.4975,
+        lng: 3.3512,
+        images: ["https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band A (20 hrs)",
+        nepaBandA: true,
+        floodScore: "9.2/10 Gated Canals",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Treated Borehole"
+      },
+      {
+        id: "lag-03",
+        title: "Studio Flat in Gated Estate",
+        location: "Lekki",
+        subArea: "Admiralty Way, Lekki Phase 1",
+        type: "Self-con",
+        price: 1400000,
+        monthlyFlex: 129000,
+        lat: 6.4474,
+        lng: 3.4723,
+        images: ["https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band A (23 hrs)",
+        nepaBandA: true,
+        floodScore: "9.8/10 Interlocked Road",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Estate Industrial Plant"
+      },
+      {
+        id: "lag-04",
+        title: "Clean 1-Bed Flat near Maryland Mall",
         location: "Ikeja",
-        subLocation: "Adeniyi Jones, Ikeja Mainland",
-        annualRent: 4500000,
-        serviced: "Gated Estate • Water Treatment",
-        beds: 3,
-        baths: 3,
-        landlordName: "Alhaji Danladi (Direct Landlord)",
-        image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+        subArea: "Maryland / Mende",
+        type: "Mini-flat",
+        price: 950000,
+        monthlyFlex: 87500,
+        lat: 6.5721,
+        lng: 3.3688,
+        images: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band B (18 hrs)",
+        nepaBandA: false,
+        floodScore: "9.0/10 High Ground",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Clean Borehole"
       },
       {
-        id: "nr-direct-04",
-        title: "Self-Contain Studio Apartment",
+        id: "lag-05",
+        title: "Spacious Student/Worker Self-Con",
         location: "Yaba",
-        subLocation: "Sabo, Commercial Avenue, Yaba",
-        annualRent: 850000,
-        serviced: "Tiled • Borehole Water",
-        beds: 1,
-        baths: 1,
-        landlordName: "Pastor Femi (Direct Owner)",
-        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80"
+        subArea: "Akoka (Beside UNILAG Back Gate)",
+        type: "Self-con",
+        price: 450000,
+        monthlyFlex: 42000,
+        lat: 6.5180,
+        lng: 3.3892,
+        images: ["https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band B (17 hrs)",
+        nepaBandA: false,
+        floodScore: "8.9/10 Dry Compound",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Clean Running Borehole"
       },
       {
-        id: "nr-direct-05",
-        title: "Luxury 2-Bedroom Apartment",
-        location: "Abuja",
-        subLocation: "Wuse 2, Near Aminu Kano Crescent, Abuja",
-        annualRent: 3800000,
-        serviced: "Standby Gen • CCTV Security",
-        beds: 2,
-        baths: 2,
-        landlordName: "Barrister Usman (Direct Owner)",
-        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"
-      },
-      {
-        id: "nr-direct-06",
-        title: "Cozy 3-Bedroom Terrace Duplex",
-        location: "Lekki",
-        subLocation: "Orchid Road, 2nd Tollgate, Lekki",
-        annualRent: 4200000,
-        serviced: "Private Car Park • Gated Security",
-        beds: 3,
-        baths: 4,
-        landlordName: "Chief Nnamdi (Direct Owner)",
-        image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80"
+        id: "lag-06",
+        title: "2-Bedroom Shared Flat in Secure Close",
+        location: "Gbagada",
+        subArea: "Gbagada Phase 2",
+        type: "2-Bed",
+        price: 1200000,
+        monthlyFlex: 110000,
+        lat: 6.5562,
+        lng: 3.3854,
+        images: ["https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band A (21 hrs)",
+        nepaBandA: true,
+        floodScore: "9.5/10 Protected Close",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Treated System"
       }
     ];
 
-    function formatNgn(num) {
-      return '₦' + Number(Math.round(num)).toLocaleString('en-NG');
+    let properties = [];
+    try {
+      const stored = localStorage.getItem('naija_listings_v1');
+      properties = stored ? JSON.parse(stored) : [...DEFAULT_LISTINGS];
+    } catch(e) {
+      properties = [...DEFAULT_LISTINGS];
     }
 
-    function calculateSavings() {
-      const rent = parseFloat(document.getElementById('input-annual-rent').value);
-      document.getElementById('label-annual-rent').textContent = `${formatNgn(rent)} / year`;
-
-      const agentFee = rent * 0.10;
-      const legalFee = rent * 0.10;
-      const inspectionEstimate = 10000;
-      const totalSaved = agentFee + legalFee + inspectionEstimate;
-
-      document.getElementById('output-agent-fee').textContent = formatNgn(agentFee);
-      document.getElementById('output-legal-fee').textContent = formatNgn(legalFee);
-      document.getElementById('output-total-saved').textContent = formatNgn(totalSaved);
+    let favorites = [];
+    try {
+      favorites = JSON.parse(localStorage.getItem('naija_favorites') || '[]');
+    } catch(e) {
+      favorites = [];
     }
 
-    function renderProperties(list) {
-      const container = document.getElementById('properties-grid');
-      container.innerHTML = list.map(item => `
-        <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-brand-500 transition-all shadow-sm hover:shadow-md flex flex-col justify-between">
-          <div class="relative aspect-video">
-            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" />
-            <span class="absolute top-3 left-3 bg-brand-950/85 backdrop-blur-md text-emerald-300 font-extrabold text-[9px] uppercase px-3 py-1 rounded-full flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Verified Landlord (0% Fee)
-            </span>
-          </div>
+    let rentDisplayMode = 'yearly';
+    let currentLang = 'ENG';
+    let activeQuickFilter = null;
+    let leafletMapInstance = null;
+    let mapMarkers = [];
+    let isSplitMapActive = false;
 
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
-            <div>
-              <div class="flex items-center gap-1 text-[11px] font-bold text-slate-400">
-                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-600"></i> ${item.subLocation}
-              </div>
-              <h3 class="font-display font-bold text-base text-slate-900 mt-1">${item.title}</h3>
-              
-              <div class="flex items-center gap-3 mt-2 text-xs text-slate-500 font-medium">
-                <span>${item.beds} Bed</span> • <span>${item.baths} Bath</span> • <span class="text-brand-700 font-bold">${item.serviced}</span>
+    function formatNaira(num) {
+      return '₦' + Number(num).toLocaleString('en-NG');
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('naija_theme', isDark ? 'dark' : 'light');
+      lucide.createIcons();
+      if (leafletMapInstance) leafletMapInstance.invalidateSize();
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'ENG' ? 'PIDGIN' : 'ENG';
+      document.getElementById('lang-label').textContent = currentLang === 'ENG' ? 'PIDGIN' : 'ENGLISH';
+      const mapPidgin = {
+        list_house_btn: currentLang === 'ENG' ? "List Your House Free" : "Put Your House Free",
+        hero_h1_1: currentLang === 'ENG' ? "NO MORE FAKE HOUSE." : "NO MORE FAKE HOUSE.",
+        hero_h1_2: currentLang === 'ENG' ? "NO MORE AGENT SCAM." : "NO MORE AGENT WAHALA.",
+        hero_find_btn: currentLang === 'ENG' ? "Find Verified House" : "Find Sharp House",
+        verified_heading: currentLang === 'ENG' ? "Verified Lagos Apartments" : "Sharp Verified Apartments"
+      };
+      Object.keys(mapPidgin).forEach(k => {
+        const el = document.querySelector(`[data-i18n="${k}"]`);
+        if (el) el.textContent = mapPidgin[k];
+      });
+      renderListings();
+    }
+
+    function renderListings(filteredList = null) {
+      const container = document.getElementById('listings-grid');
+      const emptyState = document.getElementById('empty-state');
+      const countText = document.getElementById('results-count-text');
+      const items = filteredList !== null ? filteredList : properties;
+
+      if (items.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        countText.textContent = "Showing 0 matching apartments";
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      countText.textContent = `Showing ${items.length} verified apartment${items.length > 1 ? 's' : ''} with raw video inspections`;
+
+      container.innerHTML = items.map(item => {
+        const isFav = favorites.includes(item.id);
+        const displayPrice = rentDisplayMode === 'yearly' 
+          ? `${formatNaira(item.price)}<span class="text-xs font-medium text-slate-500">/year</span>` 
+          : `${formatNaira(item.monthlyFlex)}<span class="text-xs font-bold text-brand-600">/mo (Flex)</span>`;
+
+        return `
+          <div class="glass-panel rounded-3xl overflow-hidden border border-slate-200 dark:border-dark-border hover:border-brand-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between">
+            <div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+              <img src="${item.images[0]}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
+
+              <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
+                <span class="bg-brand-500 text-dark-bg font-extrabold text-[10px] px-2 py-0.5 rounded-md uppercase">NIN Verified</span>
+                <span class="bg-black/60 backdrop-blur-md text-white font-bold text-[10px] px-2 py-0.5 rounded-md border border-white/20">${item.type}</span>
               </div>
 
-              <div class="mt-2.5 p-2 bg-slate-50 rounded-lg border border-slate-100 text-[11px] text-slate-600 flex items-center gap-1.5">
-                <i data-lucide="user-check" class="w-3.5 h-3.5 text-brand-600"></i>
-                <span>Listed by: <strong>${item.landlordName}</strong></span>
+              <button onclick="toggleFavorite('${item.id}', event)" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:scale-110 active:scale-90 transition-all border border-white/20">
+                <i data-lucide="heart" class="w-4 h-4 ${isFav ? 'text-rose-500 fill-rose-500' : 'text-white'}"></i>
+              </button>
+
+              <button onclick="openPropertyVideoModal('${item.id}')" class="absolute inset-0 m-auto w-12 h-12 rounded-full bg-brand-500/90 text-dark-bg flex items-center justify-center opacity-90 group-hover:scale-110 active:scale-95 transition-all shadow-xl">
+                <i data-lucide="play" class="w-6 h-6 fill-current ml-0.5"></i>
+              </button>
+
+              <div class="absolute bottom-2.5 left-3 right-3 z-10 flex items-center justify-between text-white text-xs font-semibold">
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-400"></i> ${item.subArea}</span>
+                <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded">4K Raw Tour</span>
               </div>
             </div>
 
-            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+            <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <span class="text-[10px] text-slate-400 block font-bold uppercase">Pure Rent / Year</span>
-                <span class="text-base font-display font-black text-brand-600">${formatNgn(item.annualRent)}<span class="text-xs text-slate-400 font-normal">/yr</span></span>
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white line-clamp-1">${item.title}</h3>
+                <div class="grid grid-cols-2 gap-2 mt-3 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                  <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span class="truncate">${item.nepaBand}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
+                    <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-500"></i>
+                    <span class="truncate">${item.floodScore}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
+                    <i data-lucide="gauge" class="w-3.5 h-3.5 text-emerald-500"></i>
+                    <span class="truncate">${item.prepaidMeter}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
+                    <i data-lucide="droplet" class="w-3.5 h-3.5 text-sky-500"></i>
+                    <span class="truncate">${item.waterStatus}</span>
+                  </div>
+                </div>
               </div>
-              <a href="https://wa.me/2348000000000?text=${encodeURIComponent('Hello NaijaRent, I want to arrange a free direct inspection for: ' + item.title + ' at ' + item.subLocation)}" target="_blank" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 shadow-md shadow-brand-600/20">
-                <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Inspect
-              </a>
+
+              <div class="pt-3 border-t border-slate-100 dark:border-dark-border/80 flex items-center justify-between gap-2">
+                <div>
+                  <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white">${displayPrice}</div>
+                  <span class="text-[10px] font-bold text-emerald-600 dark:text-brand-400">₦0 Roadside Fee</span>
+                </div>
+                <button onclick="quickWhatsAppContact('${item.title}', '${item.price}')" class="bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all">
+                  <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
+                  <span>WhatsApp</span>
+                </button>
+              </div>
             </div>
           </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+      updateMapMarkers(items);
+    }
+
+    function runLiveFilters() {
+      const loc = document.getElementById('filter-location').value;
+      const type = document.getElementById('filter-type').value;
+      const maxBudget = Number(document.getElementById('filter-budget').value);
+
+      const filtered = properties.filter(item => {
+        if (loc !== 'All' && item.location !== loc) return false;
+        if (type !== 'All' && item.type !== type) return false;
+        if (item.price > maxBudget) return false;
+        if (activeQuickFilter === 'nepa' && !item.nepaBandA) return false;
+        if (activeQuickFilter === 'flood' && !item.floodSafe) return false;
+        if (activeQuickFilter === 'prepaid' && !item.soloPrepaid) return false;
+        return true;
+      });
+
+      renderListings(filtered);
+    }
+
+    function updateBudgetSlider(val) {
+      document.getElementById('slider-val-label').textContent = formatNaira(val);
+      runLiveFilters();
+    }
+
+    function toggleQuickFilterTag(tag) {
+      activeQuickFilter = activeQuickFilter === tag ? null : tag;
+      ['nepa', 'flood', 'prepaid'].forEach(t => {
+        const el = document.getElementById(`tag-${t}`);
+        if (el) {
+          if (t === activeQuickFilter) el.classList.add('border-brand-500', 'bg-brand-500/10');
+          else el.classList.remove('border-brand-500', 'bg-brand-500/10');
+        }
+      });
+      runLiveFilters();
+    }
+
+    function filterByLocation(loc) {
+      document.getElementById('filter-location').value = loc;
+      runLiveFilters();
+      const el = document.getElementById('listings');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetFilters() {
+      document.getElementById('filter-location').value = 'All';
+      document.getElementById('filter-type').value = 'All';
+      document.getElementById('filter-budget').value = '1500000';
+      document.getElementById('slider-val-label').textContent = formatNaira(1500000);
+      activeQuickFilter = null;
+      ['nepa', 'flood', 'prepaid'].forEach(t => {
+        document.getElementById(`tag-${t}`)?.classList.remove('border-brand-500', 'bg-brand-500/10');
+      });
+      runLiveFilters();
+    }
+
+    function setRentDisplayMode(mode) {
+      rentDisplayMode = mode;
+      runLiveFilters();
+    }
+
+    function toggleSplitMapView() {
+      const panel = document.getElementById('split-map-panel');
+      const content = document.getElementById('content-container');
+      const btnText = document.getElementById('map-btn-text');
+
+      isSplitMapActive = !isSplitMapActive;
+      if (isSplitMapActive) {
+        panel.classList.remove('hidden');
+        content.classList.remove('grid-cols-1');
+        content.classList.add('grid-cols-1', 'lg:grid-cols-12');
+        document.getElementById('listings-wrapper').classList.add('lg:col-span-7');
+        panel.classList.add('lg:col-span-5');
+        btnText.textContent = "Grid Only";
+        if (!leafletMapInstance) initLeafletMap();
+        else setTimeout(() => leafletMapInstance.invalidateSize(), 200);
+      } else {
+        panel.classList.add('hidden');
+        content.classList.add('grid-cols-1');
+        content.classList.remove('grid-cols-1', 'lg:grid-cols-12');
+        document.getElementById('listings-wrapper').classList.remove('lg:col-span-7');
+        panel.classList.remove('lg:col-span-5');
+        btnText.textContent = "Split Map";
+      }
+    }
+
+    function initLeafletMap() {
+      leafletMapInstance = L.map('leaflet-map').setView([6.5140, 3.3800], 12);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; CartoDB',
+        maxZoom: 18
+      }).addTo(leafletMapInstance);
+      updateMapMarkers(properties);
+    }
+
+    function updateMapMarkers(items) {
+      if (!leafletMapInstance) return;
+      mapMarkers.forEach(m => leafletMapInstance.removeLayer(m));
+      mapMarkers = [];
+      items.forEach(item => {
+        const customIcon = L.divIcon({
+          className: 'custom-leaflet-icon',
+          html: `<div class="map-price-pill" onclick="openPropertyVideoModal('${item.id}')">🏠 ${formatNaira(item.price)}</div>`,
+          iconSize: [80, 28],
+          iconAnchor: [40, 14]
+        });
+        const marker = L.marker([item.lat, item.lng], { icon: customIcon }).addTo(leafletMapInstance);
+        mapMarkers.push(marker);
+      });
+    }
+
+    function toggleFavorite(id, event) {
+      if (event) event.stopPropagation();
+      const idx = favorites.indexOf(id);
+      if (idx === -1) {
+        favorites.push(id);
+        confetti({ particleCount: 30, spread: 60, origin: { y: 0.8 } });
+      } else {
+        favorites.splice(idx, 1);
+      }
+      localStorage.setItem('naija_favorites', JSON.stringify(favorites));
+      updateSavedBadge();
+      runLiveFilters();
+      renderSavedDrawerItems();
+    }
+
+    function updateSavedBadge() {
+      const badge = document.getElementById('saved-badge-count');
+      const mobileBadge = document.getElementById('mobile-saved-badge');
+      if (badge) badge.textContent = favorites.length;
+      if (mobileBadge) {
+        if (favorites.length > 0) mobileBadge.classList.remove('hidden');
+        else mobileBadge.classList.add('hidden');
+      }
+    }
+
+    function toggleSavedDrawer() {
+      document.getElementById('saved-drawer').classList.toggle('translate-x-full');
+      renderSavedDrawerItems();
+    }
+
+    function renderSavedDrawerItems() {
+      const container = document.getElementById('saved-drawer-items');
+      const savedProps = properties.filter(p => favorites.includes(p.id));
+      if (savedProps.length === 0) {
+        container.innerHTML = `<div class="text-center py-12 text-slate-400 font-bold">No saved apartments yet.</div>`;
+        return;
+      }
+      container.innerHTML = savedProps.map(item => `
+        <div class="p-3 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border flex gap-3 items-center">
+          <img src="${item.images[0]}" class="w-16 h-16 rounded-xl object-cover" />
+          <div class="flex-1 min-w-0">
+            <h4 class="font-extrabold text-xs truncate">${item.title}</h4>
+            <p class="text-[11px] text-slate-500">${item.location}</p>
+            <p class="text-xs font-black text-brand-500 mt-1">${formatNaira(item.price)}/yr</p>
+          </div>
+          <button onclick="toggleFavorite('${item.id}')" class="text-rose-500 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
         </div>
       `).join('');
       lucide.createIcons();
     }
 
-    function filterProperties(loc) {
-      if (loc === 'All') renderProperties(DIRECT_PROPERTIES);
-      else renderProperties(DIRECT_PROPERTIES.filter(p => p.location === loc));
+    function openPropertyVideoModal(id) {
+      const item = properties.find(p => p.id === id);
+      if (!item) return;
+      document.getElementById('modal-tour-title').textContent = `${item.title} — Uncut Video Tour`;
+      document.getElementById('modal-tour-img').src = item.images[0];
+      const whatsappBtn = document.getElementById('modal-whatsapp-action');
+      whatsappBtn.onclick = () => quickWhatsAppContact(item.title, item.price);
+      switchTourModalTab('video');
+      document.getElementById('video-tour-modal').classList.remove('hidden');
+      document.getElementById('video-tour-modal').classList.add('flex');
     }
 
-    function executeHeroSearch() {
-      const loc = document.getElementById('hero-loc').value;
-      const type = document.getElementById('hero-type').value;
+    function openDemoTourModal() {
+      openPropertyVideoModal(properties[0].id);
+    }
 
-      let filtered = DIRECT_PROPERTIES;
-      if (loc !== 'All') {
-        filtered = filtered.filter(p => p.location === loc);
+    function closeVideoModal() {
+      document.getElementById('video-tour-modal').classList.add('hidden');
+      document.getElementById('video-tour-modal').classList.remove('flex');
+    }
+
+    function toggleTourSimulationPlay() {
+      alert("Simulating raw 4K inspection walkthrough: Borehole water pressure test passed (3.8 bar), Solo Prepaid Meter confirmed.");
+    }
+
+    function switchTourModalTab(tab) {
+      const videoCont = document.getElementById('video-player-container');
+      const canvas = document.getElementById('canvas-360');
+      const btnVideo = document.getElementById('btn-view-video');
+      const btn360 = document.getElementById('btn-view-360');
+
+      if (tab === 'video') {
+        videoCont.classList.remove('hidden');
+        canvas.classList.add('hidden');
+        btnVideo.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-500 text-dark-bg flex items-center gap-1.5';
+        btn360.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5';
+      } else {
+        videoCont.classList.add('hidden');
+        canvas.classList.remove('hidden');
+        btn360.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-brand-500 text-dark-bg flex items-center gap-1.5';
+        btnVideo.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5';
+        init360Canvas();
       }
-      if (type !== 'All') {
-        filtered = filtered.filter(p => p.beds === parseInt(type));
+    }
+
+    function init360Canvas() {
+      const canvas = document.getElementById('canvas-360');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80";
+
+      let offsetX = 0;
+      let isDragging = false;
+      let startX = 0;
+
+      function resize() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        draw();
       }
 
-      renderProperties(filtered);
-      document.getElementById('properties-section').scrollIntoView({ behavior: 'smooth' });
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (!img.complete) return;
+        const imgRatio = img.width / img.height;
+        const drawHeight = canvas.height;
+        const drawWidth = drawHeight * imgRatio;
+        const xPos = offsetX % drawWidth;
+        ctx.drawImage(img, xPos, 0, drawWidth, drawHeight);
+        ctx.drawImage(img, xPos - drawWidth, 0, drawWidth, drawHeight);
+        ctx.drawImage(img, xPos + drawWidth, 0, drawWidth, drawHeight);
+      }
+
+      img.onload = () => resize();
+      canvas.onmousedown = (e) => { isDragging = true; startX = e.clientX; };
+      window.onmouseup = () => isDragging = false;
+      window.onmousemove = (e) => {
+        if (!isDragging) return;
+        offsetX += (e.clientX - startX) * 1.5;
+        startX = e.clientX;
+        draw();
+      };
+      canvas.ontouchstart = (e) => { isDragging = true; startX = e.touches[0].clientX; };
+      window.ontouchend = () => isDragging = false;
+      window.ontouchmove = (e) => {
+        if (!isDragging) return;
+        offsetX += (e.touches[0].clientX - startX) * 1.5;
+        startX = e.touches[0].clientX;
+        draw();
+      };
     }
 
-    function openLandlordModal() {
-      document.getElementById('landlord-modal').classList.remove('hidden');
-      document.getElementById('landlord-modal').classList.add('flex');
+    function openFlexPayModal() {
+      document.getElementById('flex-pay-modal').classList.remove('hidden');
+      document.getElementById('flex-pay-modal').classList.add('flex');
+      calculateFlexMonthly();
+    }
+    function closeFlexPayModal() {
+      document.getElementById('flex-pay-modal').classList.add('hidden');
+      document.getElementById('flex-pay-modal').classList.remove('flex');
+    }
+    function calculateFlexMonthly() {
+      const val = Number(document.getElementById('flex-calc-input').value) || 0;
+      const monthly = Math.round((val * 1.15) / 12);
+      document.getElementById('flex-monthly-output').textContent = formatNaira(monthly) + ' / mo';
+    }
+    function applyFlexWhatsapp() {
+      const val = document.getElementById('flex-calc-input').value;
+      const text = `Hello NaijaRentBeta, I want to apply for Pay Small Small for a yearly rent of ₦${Number(val).toLocaleString()}.`;
+      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    function closeLandlordModal() {
-      document.getElementById('landlord-modal').classList.add('hidden');
-      document.getElementById('landlord-modal').classList.remove('flex');
+    function openCommuteModal() {
+      document.getElementById('commute-modal').classList.remove('hidden');
+      document.getElementById('commute-modal').classList.add('flex');
+    }
+    function closeCommuteModal() {
+      document.getElementById('commute-modal').classList.add('hidden');
+      document.getElementById('commute-modal').classList.remove('flex');
+    }
+    function calculateCommute() {
+      const dest = document.getElementById('commute-destination').value;
+      const origin = document.getElementById('commute-origin').value;
+      const timeEl = document.getElementById('commute-time');
+      const danfoEl = document.getElementById('commute-danfo');
+
+      if (origin === 'Yaba' && dest === 'VI') {
+        timeEl.textContent = '35 – 50 mins via 3rd Mainland';
+        danfoEl.textContent = '~₦1,200 roundtrip';
+      } else {
+        timeEl.textContent = '30 – 45 mins typical Lagos traffic';
+        danfoEl.textContent = '~₦1,400 roundtrip';
+      }
     }
 
-    function submitLandlordListing() {
-      const name = document.getElementById('owner-name').value;
-      const loc = document.getElementById('owner-loc').value;
-      const type = document.getElementById('owner-type').value;
-      const price = document.getElementById('owner-price').value;
+    function openAgreementModal() {
+      document.getElementById('agreement-modal').classList.remove('hidden');
+      document.getElementById('agreement-modal').classList.add('flex');
+    }
+    function closeAgreementModal() {
+      document.getElementById('agreement-modal').classList.add('hidden');
+      document.getElementById('agreement-modal').classList.remove('flex');
+    }
 
-      if (!name || !loc || !price) {
-        alert("Please enter all property details.");
+    function openListHouseModal() {
+      document.getElementById('list-house-modal').classList.remove('hidden');
+      document.getElementById('list-house-modal').classList.add('flex');
+    }
+    function closeListHouseModal() {
+      document.getElementById('list-house-modal').classList.add('hidden');
+      document.getElementById('list-house-modal').classList.remove('flex');
+    }
+    function handleNewListingSubmit(e) {
+      e.preventDefault();
+      const newProp = {
+        id: "lag-" + Date.now(),
+        title: document.getElementById('nl-title').value,
+        location: document.getElementById('nl-loc').value,
+        subArea: document.getElementById('nl-loc').value + " Verified",
+        type: "Self-con",
+        price: Number(document.getElementById('nl-price').value),
+        monthlyFlex: Math.round(Number(document.getElementById('nl-price').value) / 11),
+        lat: 6.5100,
+        lng: 3.3700,
+        images: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=700&q=80"],
+        nepaBand: "Band A (20+ hrs)",
+        nepaBandA: true,
+        floodScore: "9.5/10 Inspected",
+        floodSafe: true,
+        prepaidMeter: "Solo Prepaid",
+        soloPrepaid: true,
+        waterStatus: "Tested Borehole"
+      };
+      properties.unshift(newProp);
+      localStorage.setItem('naija_listings_v1', JSON.stringify(properties));
+      closeListHouseModal();
+      runLiveFilters();
+      confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+    }
+
+    function quickWhatsAppContact(title, price) {
+      const cleanPrice = typeof price === 'number' ? formatNaira(price) : price;
+      const msg = `Hello NaijaRentBeta, I just watched the uncut tour of "${title}" (${cleanPrice}/year). I want to schedule physical key inspection with the verified landlord.`;
+      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    function toggleBetaBot() {
+      document.getElementById('betabot-window').classList.toggle('hidden');
+    }
+    function askPresetBot(q) {
+      document.getElementById('betabot-input').value = q;
+      sendBetaBotMsg();
+    }
+    function sendBetaBotMsg() {
+      const input = document.getElementById('betabot-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('betabot-messages');
+      container.innerHTML += `
+        <div class="flex items-start justify-end gap-2">
+          <div class="bg-brand-500 text-dark-bg font-semibold p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[80%]">${text}</div>
+        </div>
+      `;
+      input.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      setTimeout(() => {
+        let reply = "Every house on NaijaRentBeta has a verified landlord, running borehole check, and 0% agent inspection charges.";
+        if (text.toLowerCase().includes('flood')) {
+          reply = "Compounds on NaijaRentBeta are physically checked to ensure the foundation is elevated above street gutters so rainwater recedes without entering.";
+        }
+        container.innerHTML += `
+          <div class="flex items-start gap-2">
+            <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">🤖</div>
+            <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200 leading-relaxed">${reply}</div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+        lucide.createIcons();
+      }, 400);
+    }
+
+    function openCommandPalette() {
+      document.getElementById('cmd-palette').classList.remove('hidden');
+      document.getElementById('cmd-palette').classList.add('flex');
+      document.getElementById('cmd-input').focus();
+    }
+    function closeCommandPalette() {
+      document.getElementById('cmd-palette').classList.add('hidden');
+      document.getElementById('cmd-palette').classList.remove('flex');
+    }
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openCommandPalette();
+      }
+      if (e.key === 'Escape') {
+        closeCommandPalette();
+        closeVideoModal();
+        closeFlexPayModal();
+        closeAgreementModal();
+        closeCommuteModal();
+        closeListHouseModal();
+      }
+    });
+
+    function handleCmdSearch(q) {
+      const container = document.getElementById('cmd-results');
+      const query = q.toLowerCase();
+      const matched = properties.filter(p => p.title.toLowerCase().includes(query) || p.location.toLowerCase().includes(query));
+      if (matched.length === 0) {
+        container.innerHTML = `<p class="p-3 text-slate-400 text-center text-xs">No matching verified houses found.</p>`;
         return;
       }
-
-      const msg = `Hello NaijaRent Beta, I am a landlord wanting to list directly:
-✦ Name: ${name}
-✦ Location: ${loc}
-✦ Apartment: ${type}
-✦ Annual Rent: ₦${price}
-Please send me verification steps.`;
-
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`, '_blank');
-      closeLandlordModal();
+      container.innerHTML = matched.map(m => `
+        <div onclick="closeCommandPalette(); openPropertyVideoModal('${m.id}')" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-dark-surface cursor-pointer flex items-center justify-between">
+          <div>
+            <p class="font-extrabold text-slate-900 dark:text-white">${m.title}</p>
+            <p class="text-[10px] text-slate-500">${m.location}</p>
+          </div>
+          <span class="font-bold text-brand-500">${formatNaira(m.price)}</span>
+        </div>
+      `).join('');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      calculateSavings();
-      renderProperties(DIRECT_PROPERTIES);
+      renderListings();
+      updateSavedBadge();
       lucide.createIcons();
     });
   </script>
