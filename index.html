@@ -961,29 +961,36 @@
           <div class="w-8 h-8 rounded-xl bg-dark-bg text-brand-400 flex items-center justify-center font-bold text-xs">🤖</div>
           <div>
             <h4 class="text-xs font-black">BetaBot · NaijaRentBeta Team</h4>
-            <p class="text-[10px] text-brand-950 font-semibold">Real people reply right here</p>
+            <p id="betabot-subtitle" class="text-[10px] text-brand-950 font-semibold">Real people reply right here</p>
           </div>
         </div>
-        <button onclick="toggleBetaBot()" class="w-6 h-6 rounded-lg bg-dark-bg/20 flex items-center justify-center text-dark-bg">
-          <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
+        <div class="flex items-center gap-2">
+          <!-- Chat language: English / Pidgin -->
+          <div class="flex rounded-lg bg-dark-bg/15 p-0.5 text-[10px] font-extrabold" role="group" aria-label="Chat language">
+            <button id="chat-lang-en" onclick="setChatLang('en')" class="px-2 py-1 rounded-md" aria-pressed="true">EN</button>
+            <button id="chat-lang-pcm" onclick="setChatLang('pcm')" class="px-2 py-1 rounded-md" aria-pressed="false">Pidgin</button>
+          </div>
+          <button onclick="toggleBetaBot()" class="w-6 h-6 rounded-lg bg-dark-bg/20 flex items-center justify-center text-dark-bg" aria-label="Close chat">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
       </div>
 
       <div id="betabot-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs">
         <div class="flex items-start gap-2">
           <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">🤖</div>
-          <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200">
-            How far! I be <strong>BetaBot</strong>. Ask anything about a house, inspection times, or all-in move-in costs. Our team will reply right here in this chat. You fit also chat us on WhatsApp.
+          <div id="betabot-welcome" class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200">
+            Hi! I'm <strong>BetaBot</strong>. Ask anything about a house, inspection times, or the all-in move-in cost. Our team will reply right here in this chat, or you can message us on WhatsApp.
           </div>
         </div>
       </div>
 
       <div class="px-3 py-2 bg-slate-50 dark:bg-dark-surface/60 border-t border-slate-200 dark:border-dark-border flex gap-1.5 overflow-x-auto text-[10px] whitespace-nowrap">
         <button onclick="continueChatOnWhatsApp()" class="px-2.5 py-1 rounded-full bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold flex items-center gap-1 shrink-0">
-          <i data-lucide="message-circle" class="w-3 h-3 fill-current"></i> Chat on WhatsApp
+          <i data-lucide="message-circle" class="w-3 h-3 fill-current"></i> <span id="chat-whatsapp-label">Chat on WhatsApp</span>
         </button>
-        <button onclick="askPresetBot('What is the true pack-in cost for a ₦650,000 apartment?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">Pack-in Cost? 💰</button>
-        <button onclick="askPresetBot('Which areas in Lagos have FiberOne and 20+ hrs NEPA?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">WFH Hubs 💻</button>
+        <button id="chat-preset-cost" onclick="askPresetBot(chatText('presetCostQ'))" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">Pack-in cost? 💰</button>
+        <button id="chat-preset-wfh" onclick="askPresetBot(chatText('presetWfhQ'))" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">WFH areas 💻</button>
       </div>
 
       <div class="p-2.5 bg-white dark:bg-dark-card border-t border-slate-200 dark:border-dark-border flex items-center gap-2">
@@ -1316,6 +1323,7 @@
         hero_find_btn: currentLang === 'ENG' ? "Find a House" : "Find Sharp House",
         verified_heading: currentLang === 'ENG' ? "Lagos Apartments" : "Sharp Lagos Apartments"
       };
+      setChatLang(currentLang === 'PIDGIN' ? 'pcm' : 'en');
       Object.keys(mapPidgin).forEach(k => {
         const el = document.querySelector(`[data-i18n="${k}"]`);
         if (el) el.textContent = mapPidgin[k];
@@ -2128,6 +2136,84 @@
     const CHAT_POLL_OPEN_MS = 4000;
     const CHAT_POLL_CLOSED_MS = 30000;
 
+    // ----- Chat language (English / Nigerian Pidgin) -----
+    const CHAT_LANG_KEY = 'nrb_chat_lang';
+    const CHAT_TEXT = {
+      en: {
+        subtitle: 'Real people reply right here',
+        welcome: "Hi! I'm <strong>BetaBot</strong>. Ask anything about a house, inspection times, or the all-in move-in cost. Our team will reply right here in this chat, or you can message us on WhatsApp.",
+        placeholder: 'Type your message…',
+        whatsapp: 'Chat on WhatsApp',
+        presetCost: 'Pack-in cost? 💰',
+        presetCostQ: 'What is the total pack-in cost for a ₦650,000 apartment?',
+        presetWfh: 'WFH areas 💻',
+        presetWfhQ: 'Which areas have fibre internet and 20+ hours of power?',
+        sending: 'Sending…',
+        sent: 'Sent ✓',
+        slowDown: "Not sent — you're sending too fast. Wait a minute and try again.",
+        notSent: 'Not sent — please try again, or tap “Chat on WhatsApp”.',
+        offline: 'Not sent — check your internet and try again, or tap “Chat on WhatsApp”.',
+        thanks: 'Thanks! Our team has your message and will reply right here. Keep this page open or come back later — your chat is saved on this device. Need a faster answer? Tap “Chat on WhatsApp”.',
+        noApi: 'Thanks! For a quick answer from our team, tap “Chat on WhatsApp” above.',
+        faqCost: 'Quick answer: the total pack-in cost = yearly rent + 10% legal fee + 10% refundable caution + estate dues/LAWMA levy. There is no roadside agent fee (₦0).',
+        faqWfh: 'Quick answer: houses with the 💻 WFH badge are checked for fibre internet (FiberOne/ipNX), inverter/solar permission, and Band A power (20+ hours a day).',
+        labelTeam: 'NaijaRentBeta team',
+        labelBot: 'BetaBot (auto-reply)'
+      },
+      pcm: {
+        subtitle: 'Real people go answer you for here',
+        welcome: 'How far! I be <strong>BetaBot</strong>. Ask anything about house, inspection time, or the full money wey you go pay enter house. Our team go answer you for this chat, or you fit message us for WhatsApp.',
+        placeholder: 'Type wetin you wan talk…',
+        whatsapp: 'Chat us for WhatsApp',
+        presetCost: 'How much to enter? 💰',
+        presetCostQ: 'How much I go pay enter ₦650,000 apartment?',
+        presetWfh: 'Work-from-home area 💻',
+        presetWfhQ: 'Which area get fibre internet and light wey pass 20 hours?',
+        sending: 'E dey send…',
+        sent: 'E don send ✓',
+        slowDown: 'E no send — you dey send too fast. Wait small, then try again.',
+        notSent: 'E no send — abeg try again, or tap “Chat us for WhatsApp”.',
+        offline: 'E no send — check your network, try again, or tap “Chat us for WhatsApp”.',
+        thanks: 'Thank you! Our team don see your message, dem go answer you for here. You fit leave this page open or come back later — your chat dey saved for this phone. You want answer quick quick? Tap “Chat us for WhatsApp”.',
+        noApi: 'Thank you! Make our team answer you quick, tap “Chat us for WhatsApp” for up.',
+        faqCost: 'Quick answer: the full money to enter house = yearly rent + 10% legal fee + 10% caution (dem go return am) + estate due/LAWMA levy. No roadside agent fee at all (₦0).',
+        faqWfh: 'Quick answer: any house wey get the 💻 WFH badge, we don check am for fibre internet (FiberOne/ipNX), inverter/solar permission, and Band A light (20+ hours every day).',
+        labelTeam: 'NaijaRentBeta team',
+        labelBot: 'BetaBot (automatic answer)'
+      }
+    };
+    let chatLang = storageGet(CHAT_LANG_KEY) === 'pcm' ? 'pcm' : 'en';
+
+    function chatText(key) {
+      return CHAT_TEXT[chatLang][key];
+    }
+
+    function setChatLang(lang) {
+      chatLang = lang === 'pcm' ? 'pcm' : 'en';
+      storageSet(CHAT_LANG_KEY, chatLang);
+      applyChatLang();
+    }
+
+    // Update the fixed parts of the chat window; messages already sent stay as they were
+    function applyChatLang() {
+      document.getElementById('betabot-subtitle').textContent = chatText('subtitle');
+      document.getElementById('betabot-welcome').innerHTML = chatText('welcome');
+      document.getElementById('betabot-input').placeholder = chatText('placeholder');
+      document.getElementById('chat-whatsapp-label').textContent = chatText('whatsapp');
+      document.getElementById('chat-preset-cost').textContent = chatText('presetCost');
+      document.getElementById('chat-preset-wfh').textContent = chatText('presetWfh');
+      ['en', 'pcm'].forEach(l => {
+        const btn = document.getElementById(`chat-lang-${l}`);
+        const on = l === chatLang;
+        btn.classList.toggle('bg-white', on);
+        btn.classList.toggle('dark:bg-dark-bg', on);
+        btn.classList.toggle('text-dark-bg', true);
+        btn.classList.toggle('dark:text-brand-400', on);
+        btn.classList.toggle('shadow-sm', on);
+        btn.setAttribute('aria-pressed', String(on));
+      });
+    }
+
     let chatLastId = 0;
     let chatPollTimer = null;
     let chatPolling = false;
@@ -2177,7 +2263,7 @@
           <div class="bg-brand-500 text-dark-bg font-semibold p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[80%] whitespace-pre-wrap break-words">${escapeHtml(text)}</div>
           <span class="chat-status text-[10px] text-slate-400">${escapeHtml(opts.status || '')}</span>`;
       } else {
-        const label = sender === 'agent' ? 'NaijaRentBeta team' : 'BetaBot (auto-reply)';
+        const label = sender === 'agent' ? chatText('labelTeam') : chatText('labelBot');
         const avatar = sender === 'agent' ? '🧑🏾‍💼' : '🤖';
         row.className = 'flex items-start gap-2';
         row.innerHTML = `
@@ -2226,12 +2312,9 @@
 
     function faqAutoReply(text) {
       const t = text.toLowerCase();
-      if (t.includes('pack-in') || t.includes('cost')) {
-        return "Quick answer: the true pack-in cost = Base Rent + 10% Legal + 10% Refundable Caution + Estate/LAWMA levy. Roadside agent fees are ₦0 on NaijaRentBeta.";
-      }
-      if (t.includes('wfh') || t.includes('fiber') || t.includes('nepa')) {
-        return "Quick answer: houses with the 💻 WFH badge are checked for FiberOne/ipNX, solar inverter permission, and Band A power (20+ hrs daily).";
-      }
+      // English + Pidgin keywords
+      if (['pack-in', 'cost', 'how much', 'enter'].some(k => t.includes(k))) return chatText('faqCost');
+      if (['wfh', 'fiber', 'fibre', 'internet', 'nepa', 'light', 'power'].some(k => t.includes(k))) return chatText('faqWfh');
       return null;
     }
 
@@ -2242,12 +2325,12 @@
       input.value = '';
       lastVisitorMessage = text;
 
-      const bubble = appendChatBubble('visitor', text, { status: CHAT_API ? 'Sending…' : '' });
+      const bubble = appendChatBubble('visitor', text, { status: CHAT_API ? chatText('sending') : '' });
       const faq = faqAutoReply(text);
       if (faq) setTimeout(() => appendChatBubble('bot', faq), 400);
 
       if (!CHAT_API) {
-        if (!faq) setTimeout(() => appendChatBubble('bot', "Thanks! For a quick answer from our team, tap “Chat on WhatsApp” above."), 400);
+        if (!faq) setTimeout(() => appendChatBubble('bot', chatText('noApi')), 400);
         return;
       }
 
@@ -2256,25 +2339,25 @@
         const res = await fetch(`${CHAT_API}/chat/send`, {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ session: getChatSession(), text, page: lastViewedListing || 'Homepage' })
+          body: JSON.stringify({ session: getChatSession(), text, page: (lastViewedListing || 'Homepage') + (chatLang === 'pcm' ? ' · 🗣 Prefers Pidgin' : '') })
         });
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.ok) {
           bubble.dataset.msgId = data.id;
-          statusEl.textContent = 'Sent ✓';
+          statusEl.textContent = chatText('sent');
           storageSet(CHAT_ACTIVE_KEY, String(Date.now() + 24 * 60 * 60 * 1000));
           if (!chatAutoReplied) {
             chatAutoReplied = true;
-            setTimeout(() => appendChatBubble('bot', "Thanks! Our team don get your message and will reply right here. Keep this page open, or come back later — your chat is saved on this device. Need a faster answer? Tap “Chat on WhatsApp”."), faq ? 900 : 400);
+            setTimeout(() => appendChatBubble('bot', chatText('thanks')), faq ? 900 : 400);
           }
           scheduleChatPoll(CHAT_POLL_OPEN_MS);
         } else if (data.error === 'slow_down') {
-          statusEl.textContent = 'Not sent — you are sending too fast. Wait a minute and try again.';
+          statusEl.textContent = chatText('slowDown');
         } else {
-          statusEl.textContent = 'Not sent — please try again, or tap “Chat on WhatsApp”.';
+          statusEl.textContent = chatText('notSent');
         }
       } catch (err) {
-        statusEl.textContent = 'Not sent — check your internet and try again, or tap “Chat on WhatsApp”.';
+        statusEl.textContent = chatText('offline');
       }
     }
 
@@ -2298,7 +2381,7 @@
               pending.dataset.msgId = m.id;
               return;
             }
-            appendChatBubble(['agent', 'lead'].includes(m.sender) ? m.sender : 'visitor', m.text, { serverId: m.id, status: m.sender === 'visitor' ? 'Sent ✓' : '' });
+            appendChatBubble(['agent', 'lead'].includes(m.sender) ? m.sender : 'visitor', m.text, { serverId: m.id, status: m.sender === 'visitor' ? chatText('sent') : '' });
             if (m.sender === 'agent') newAgentMessage = m.id;
           });
           const seen = Number(storageGet(CHAT_SEEN_KEY) || 0);
@@ -2385,6 +2468,7 @@
       calculateCommute();
       updateSavedBadge();
       router();
+      applyChatLang();
       lucide.createIcons();
       // Returning visitor with a recent chat: fetch any replies that arrived while they were away
       scheduleChatPoll(0);
