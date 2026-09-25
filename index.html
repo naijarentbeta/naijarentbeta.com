@@ -21,12 +21,14 @@
             brand: {
               50: '#ecfdf3',
               100: '#d1fae1',
+              300: '#6ee7b7',
               400: '#10b981',
               500: '#00C950',
               600: '#00a843',
               700: '#008736',
               800: '#006629',
               900: '#00471d',
+              950: '#002910',
             },
             dark: {
               bg: '#0A0E17',
@@ -46,7 +48,7 @@
   </script>
 
   <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@1.48.0/dist/umd/lucide.min.js"></script>
 
   <!-- Leaflet CSS & JS for Lagos Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -328,7 +330,7 @@
                       <i data-lucide="wifi" class="w-3 h-3 text-emerald-400"></i> FiberOne Ready
                     </div>
                   </div>
-                  <button onclick="quickWhatsAppContact('Akoka Yaba Modern Self-Con', '650,000')" class="w-full bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-md">
+                  <button onclick="quickWhatsAppContact('Akoka Yaba Modern Self-Con', 650000)" class="w-full bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-md">
                     <i data-lucide="message-circle" class="w-3.5 h-3.5 fill-current"></i> Chat Landlord on WhatsApp
                   </button>
                 </div>
@@ -494,7 +496,7 @@
         </div>
       </div>
 
-      <div id="split-map-panel" class="hidden w-full h-[650px] sticky top-24 rounded-3xl overflow-hidden border border-slate-200 dark:border-dark-border shadow-xl">
+      <div id="split-map-panel" class="hidden w-full h-[60vh] lg:h-[650px] order-first lg:order-none lg:sticky lg:top-24 rounded-3xl overflow-hidden border border-slate-200 dark:border-dark-border shadow-xl">
         <div id="leaflet-map" class="w-full h-full"></div>
       </div>
 
@@ -597,13 +599,13 @@
             <li><button onclick="openAgreementModal()" class="hover:text-brand-500 text-left">Tenancy Agreement Draft</button></li>
             <li><button onclick="openFlexPayModal()" class="hover:text-brand-500 text-left">Pay Small Small Calculator</button></li>
             <li><button onclick="openCommuteModal()" class="hover:text-brand-500 text-left">Commute & Danfo Calculator</button></li>
-            <li><button onclick="toggleBetaBot()" class="hover:text-brand-500 text-left">BetaBot AI Assistant</button></li>
+            <li><button onclick="toggleBetaBot()" class="hover:text-brand-500 text-left">BetaBot Live Chat</button></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-900 dark:text-white mb-3">Direct Support</h4>
-          <a href="https://wa.me/2348000000000?text=Hello%20NaijaRentBeta%2C%20I%20need%20a%20verified%20apartment" target="_blank" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
+          <a id="footer-whatsapp-link" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md">
             <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i> WhatsApp Field Desk
           </a>
         </div>
@@ -634,9 +636,10 @@
       <i data-lucide="credit-card" class="w-4 h-4"></i>
       <span>Monthly</span>
     </button>
-    <button onclick="toggleBetaBot()" class="flex flex-col items-center gap-1 text-emerald-600 dark:text-emerald-400">
+    <button onclick="toggleBetaBot()" class="flex flex-col items-center gap-1 text-emerald-600 dark:text-emerald-400 relative">
       <i data-lucide="bot" class="w-4 h-4"></i>
       <span>BetaBot</span>
+      <span id="mobile-betabot-unread-dot" class="hidden absolute -top-1 right-1 w-2 h-2 rounded-full bg-rose-500"></span>
     </button>
   </nav>
 
@@ -744,8 +747,9 @@
 
   <!-- ================= FLOATING BETABOT WIDGET ================= -->
   <div class="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40">
-    <button id="betabot-toggle-btn" onclick="toggleBetaBot()" class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 text-dark-bg font-extrabold flex items-center justify-center shadow-xl shadow-brand-500/30 hover:scale-105 active:scale-95 transition-all">
+    <button id="betabot-toggle-btn" onclick="toggleBetaBot()" class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-emerald-400 text-dark-bg font-extrabold flex items-center justify-center shadow-xl shadow-brand-500/30 hover:scale-105 active:scale-95 transition-all" aria-label="Chat with NaijaRentBeta">
       <i data-lucide="bot" class="w-7 h-7"></i>
+      <span id="betabot-unread-dot" class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-500 ring-2 ring-white dark:ring-dark-bg"></span>
     </button>
 
     <div id="betabot-window" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[380px] h-[520px] glass-panel rounded-3xl shadow-2xl border border-slate-200 dark:border-dark-border flex flex-col overflow-hidden">
@@ -753,8 +757,8 @@
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-xl bg-dark-bg text-brand-400 flex items-center justify-center font-bold text-xs">🤖</div>
           <div>
-            <h4 class="text-xs font-black">BetaBot Lagos AI</h4>
-            <p class="text-[10px] text-brand-950 font-semibold">Trained on Lagos Tenancy & WFH</p>
+            <h4 class="text-xs font-black">BetaBot · NaijaRentBeta Team</h4>
+            <p class="text-[10px] text-brand-950 font-semibold">Real people reply right here</p>
           </div>
         </div>
         <button onclick="toggleBetaBot()" class="w-6 h-6 rounded-lg bg-dark-bg/20 flex items-center justify-center text-dark-bg">
@@ -766,18 +770,21 @@
         <div class="flex items-start gap-2">
           <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">🤖</div>
           <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200">
-            How far! I be <strong>BetaBot</strong>. Ask me anything about Lagos rent, all-in move-in bills, rainy season flood alerts, or solar/generator rules for tech remote workers.
+            How far! I be <strong>BetaBot</strong>. Ask anything about a house, inspection times, or all-in move-in costs. Our team will reply right here in this chat. You fit also chat us on WhatsApp.
           </div>
         </div>
       </div>
 
       <div class="px-3 py-2 bg-slate-50 dark:bg-dark-surface/60 border-t border-slate-200 dark:border-dark-border flex gap-1.5 overflow-x-auto text-[10px] whitespace-nowrap">
+        <button onclick="continueChatOnWhatsApp()" class="px-2.5 py-1 rounded-full bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold flex items-center gap-1 shrink-0">
+          <i data-lucide="message-circle" class="w-3 h-3 fill-current"></i> Chat on WhatsApp
+        </button>
         <button onclick="askPresetBot('What is the true pack-in cost for a ₦650,000 apartment?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">Pack-in Cost? 💰</button>
         <button onclick="askPresetBot('Which areas in Lagos have FiberOne and 20+ hrs NEPA?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border text-slate-700 dark:text-slate-300">WFH Hubs 💻</button>
       </div>
 
       <div class="p-2.5 bg-white dark:bg-dark-card border-t border-slate-200 dark:border-dark-border flex items-center gap-2">
-        <input id="betabot-input" type="text" placeholder="Ask BetaBot anything about Lagos..." class="flex-1 bg-slate-100 dark:bg-dark-surface px-3 py-2 rounded-xl text-xs text-slate-800 dark:text-slate-100 focus:outline-none" onkeydown="if(event.key === 'Enter') sendBetaBotMsg()" />
+        <input id="betabot-input" type="text" placeholder="Type your message..." maxlength="1000" class="flex-1 bg-slate-100 dark:bg-dark-surface px-3 py-2 rounded-xl text-xs text-slate-800 dark:text-slate-100 focus:outline-none" onkeydown="if(event.key === 'Enter') sendBetaBotMsg()" />
         <button onclick="sendBetaBotMsg()" class="w-8 h-8 rounded-xl bg-brand-500 text-dark-bg flex items-center justify-center shrink-0">
           <i data-lucide="send" class="w-4 h-4"></i>
         </button>
@@ -851,7 +858,7 @@
         <div class="p-4 rounded-2xl bg-brand-500/10 border border-brand-500/30 space-y-2">
           <div class="flex justify-between items-center text-xs">
             <span>Your Monthly Debit:</span>
-            <span id="flex-monthly-output" class="text-lg font-extrabold text-brand-600 dark:text-brand-400">₦62,290 / mo</span>
+            <span id="flex-monthly-output" class="text-lg font-extrabold text-brand-600 dark:text-brand-400">₦62,292 / mo</span>
           </div>
           <div class="flex justify-between items-center text-[11px] text-slate-500">
             <span>Landlord Receives:</span>
@@ -954,7 +961,7 @@
           </div>
           <div>
             <label class="block font-bold mb-1">Yearly Rent (₦)</label>
-            <input type="number" id="nl-price" required placeholder="650000" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-semibold" />
+            <input type="number" id="nl-price" required min="1" placeholder="650000" class="w-full bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-xl px-3 py-2 text-xs font-semibold" />
           </div>
         </div>
         <button type="submit" class="w-full bg-brand-500 hover:bg-brand-600 text-dark-bg font-extrabold py-3 rounded-2xl text-xs transition-all shadow-lg">
@@ -997,7 +1004,6 @@
         subArea: "Alagomeji, Yaba",
         type: "Self-con",
         price: 550000,
-        monthlyFlex: 51000,
         legalFee: 55000,
         cautionFee: 55000,
         estateDues: 30000,
@@ -1026,7 +1032,6 @@
         subArea: "Aguda / Bode Thomas",
         type: "Mini-flat",
         price: 850000,
-        monthlyFlex: 78500,
         legalFee: 85000,
         cautionFee: 85000,
         estateDues: 40000,
@@ -1055,7 +1060,6 @@
         subArea: "Admiralty Way, Lekki Phase 1",
         type: "Self-con",
         price: 1400000,
-        monthlyFlex: 129000,
         legalFee: 140000,
         cautionFee: 140000,
         estateDues: 60000,
@@ -1084,7 +1088,6 @@
         subArea: "Maryland / Mende",
         type: "Mini-flat",
         price: 950000,
-        monthlyFlex: 87500,
         legalFee: 95000,
         cautionFee: 95000,
         estateDues: 35000,
@@ -1113,7 +1116,6 @@
         subArea: "Akoka (Beside UNILAG Back Gate)",
         type: "Self-con",
         price: 450000,
-        monthlyFlex: 42000,
         legalFee: 45000,
         cautionFee: 45000,
         estateDues: 25000,
@@ -1142,7 +1144,6 @@
         subArea: "Gbagada Phase 2",
         type: "2-Bed",
         price: 1200000,
-        monthlyFlex: 110000,
         legalFee: 120000,
         cautionFee: 120000,
         estateDues: 45000,
@@ -1166,13 +1167,49 @@
       }
     ];
 
-    let properties = [];
-    try {
-      const stored = localStorage.getItem('naija_listings_v2');
-      properties = stored ? JSON.parse(stored) : [...DEFAULT_LISTINGS];
-    } catch(e) {
-      properties = [...DEFAULT_LISTINGS];
+    // TODO: replace with the real NaijaRentBeta WhatsApp number (country code, no + or spaces)
+    const WHATSAPP_NUMBER = '2348000000000';
+
+    function whatsappUrl(msg) {
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
     }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Monthly Flex = yearly rent + 15% service charge, split over 12 months
+    function flexMonthly(price) {
+      return Math.round((Number(price) * 1.15) / 12);
+    }
+
+    // Only listings a visitor submits are kept in their browser; DEFAULT_LISTINGS always come from this file
+    const USER_LISTINGS_KEY = 'naija_user_listings';
+    let userListings = [];
+    try {
+      const stored = localStorage.getItem(USER_LISTINGS_KEY);
+      if (stored) {
+        userListings = JSON.parse(stored);
+      } else {
+        // Migrate from the old key, which stored every listing (defaults included)
+        const legacy = localStorage.getItem('naija_listings_v2');
+        if (legacy) {
+          const defaultIds = new Set(DEFAULT_LISTINGS.map(p => p.id));
+          userListings = JSON.parse(legacy).filter(p => !defaultIds.has(p.id));
+          localStorage.setItem(USER_LISTINGS_KEY, JSON.stringify(userListings));
+          localStorage.removeItem('naija_listings_v2');
+        }
+      }
+      if (!Array.isArray(userListings)) userListings = [];
+    } catch(e) {
+      userListings = [];
+    }
+    let properties = [...userListings, ...DEFAULT_LISTINGS];
 
     let favorites = [];
     try {
@@ -1237,17 +1274,18 @@
         const grandTotal = item.price + item.legalFee + item.cautionFee + item.estateDues;
         const displayPrice = rentDisplayMode === 'yearly' 
           ? `${formatNaira(item.price)}<span class="text-xs font-medium text-slate-500">/year</span>` 
-          : `${formatNaira(item.monthlyFlex)}<span class="text-xs font-bold text-brand-600">/mo (Flex)</span>`;
+          : `${formatNaira(flexMonthly(item.price))}<span class="text-xs font-bold text-brand-600">/mo (Flex)</span>`;
+        const title = escapeHtml(item.title);
 
         return `
           <div class="glass-panel rounded-3xl overflow-hidden border border-slate-200 dark:border-dark-border hover:border-brand-500 transition-all duration-300 shadow-sm hover:shadow-xl group flex flex-col justify-between">
             <div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
-              <img src="${item.images[0]}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img src="${escapeHtml(item.images[0])}" alt="${title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
               <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
 
               <div class="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
                 <span class="bg-brand-500 text-dark-bg font-extrabold text-[10px] px-2 py-0.5 rounded-md uppercase">NIN Verified</span>
-                <span class="bg-black/60 backdrop-blur-md text-white font-bold text-[10px] px-2 py-0.5 rounded-md border border-white/20">${item.type}</span>
+                <span class="bg-black/60 backdrop-blur-md text-white font-bold text-[10px] px-2 py-0.5 rounded-md border border-white/20">${escapeHtml(item.type)}</span>
                 ${item.wfhReady ? '<span class="bg-indigo-600/90 text-white font-bold text-[10px] px-2 py-0.5 rounded-md">💻 WFH Ready</span>' : ''}
               </div>
 
@@ -1260,24 +1298,24 @@
               </button>
 
               <div class="absolute bottom-2.5 left-3 right-3 z-10 flex items-center justify-between text-white text-xs font-semibold">
-                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-400"></i> ${item.subArea}</span>
+                <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-400"></i> ${escapeHtml(item.subArea)}</span>
                 <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded">4K Raw Tour</span>
               </div>
             </div>
 
             <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
-                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white line-clamp-1">${item.title}</h3>
+                <h3 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white line-clamp-1">${title}</h3>
                 
                 <!-- Utilities -->
                 <div class="grid grid-cols-2 gap-2 mt-3 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
                   <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
                     <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i>
-                    <span class="truncate">${item.nepaBand}</span>
+                    <span class="truncate">${escapeHtml(item.nepaBand)}</span>
                   </div>
                   <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-dark-surface px-2 py-1 rounded-lg">
                     <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-500"></i>
-                    <span class="truncate">${item.floodScore}</span>
+                    <span class="truncate">${escapeHtml(item.floodScore)}</span>
                   </div>
                 </div>
 
@@ -1298,7 +1336,7 @@
                   <div class="text-base sm:text-lg font-black text-slate-900 dark:text-white">${displayPrice}</div>
                   <span class="text-[10px] font-bold text-emerald-600 dark:text-brand-400">₦0 Roadside Fee</span>
                 </div>
-                <button onclick="quickWhatsAppContact('${item.title}', '${item.price}')" class="bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all">
+                <button onclick="contactAboutProperty('${item.id}')" class="bg-emerald-500 hover:bg-emerald-600 text-dark-bg font-extrabold px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all">
                   <i data-lucide="message-circle" class="w-4 h-4 fill-current"></i>
                   <span>WhatsApp</span>
                 </button>
@@ -1367,8 +1405,13 @@
       runLiveFilters();
     }
 
+    const RENT_MODE_ACTIVE_CLASS = 'px-2.5 py-1 rounded-lg text-[11px] font-extrabold bg-white dark:bg-brand-500 text-slate-900 dark:text-dark-bg shadow-sm';
+    const RENT_MODE_INACTIVE_CLASS = 'px-2.5 py-1 rounded-lg text-[11px] font-bold text-slate-600 dark:text-slate-300 hover:text-brand-500';
+
     function setRentDisplayMode(mode) {
       rentDisplayMode = mode;
+      document.getElementById('rent-mode-yearly').className = mode === 'yearly' ? RENT_MODE_ACTIVE_CLASS : RENT_MODE_INACTIVE_CLASS;
+      document.getElementById('rent-mode-monthly').className = mode === 'monthly' ? RENT_MODE_ACTIVE_CLASS : RENT_MODE_INACTIVE_CLASS;
       runLiveFilters();
     }
 
@@ -1380,18 +1423,27 @@
       isSplitMapActive = !isSplitMapActive;
       if (isSplitMapActive) {
         panel.classList.remove('hidden');
-        content.classList.remove('grid-cols-1');
-        content.classList.add('grid-cols-1', 'lg:grid-cols-12');
+        content.classList.add('lg:grid-cols-12');
         document.getElementById('listings-wrapper').classList.add('lg:col-span-7');
+        // Three card columns are too cramped beside the map
+        document.getElementById('listings-grid').classList.remove('lg:grid-cols-3');
         panel.classList.add('lg:col-span-5');
         btnText.textContent = "Grid Only";
         if (!leafletMapInstance) initLeafletMap();
         else setTimeout(() => leafletMapInstance.invalidateSize(), 200);
+        // Below the lg breakpoint the map stacks above the listings, so bring it into view
+        if (!window.matchMedia('(min-width: 1024px)').matches) {
+          requestAnimationFrame(() => {
+            const headerHeight = document.querySelector('header').offsetHeight;
+            const top = panel.getBoundingClientRect().top + window.scrollY - headerHeight - 12;
+            window.scrollTo({ top, behavior: 'smooth' });
+          });
+        }
       } else {
         panel.classList.add('hidden');
-        content.classList.add('grid-cols-1');
-        content.classList.remove('grid-cols-1', 'lg:grid-cols-12');
+        content.classList.remove('lg:grid-cols-12');
         document.getElementById('listings-wrapper').classList.remove('lg:col-span-7');
+        document.getElementById('listings-grid').classList.add('lg:grid-cols-3');
         panel.classList.remove('lg:col-span-5');
         btnText.textContent = "Split Map";
       }
@@ -1399,11 +1451,11 @@
 
     function initLeafletMap() {
       leafletMapInstance = L.map('leaflet-map').setView([6.5140, 3.3800], 12);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB',
-        maxZoom: 18
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
       }).addTo(leafletMapInstance);
-      updateMapMarkers(properties);
+      runLiveFilters();
     }
 
     function updateMapMarkers(items) {
@@ -1425,6 +1477,7 @@
     function openCostModal(id) {
       const item = properties.find(p => p.id === id);
       if (!item) return;
+      lastViewedListing = item.title;
       const grandTotal = item.price + item.legalFee + item.cautionFee + item.estateDues;
 
       document.getElementById('cost-modal-title').textContent = `${item.title}`;
@@ -1436,7 +1489,7 @@
 
       document.getElementById('cost-whatsapp-btn').onclick = () => {
         const msg = `Hello NaijaRentBeta, I reviewed the All-In Pack-in bill of ${formatNaira(grandTotal)} for "${item.title}". I want to inspect in person.`;
-        window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`, '_blank');
+        window.open(whatsappUrl(msg), '_blank');
       };
 
       document.getElementById('cost-modal').classList.remove('hidden');
@@ -1450,6 +1503,7 @@
     function openWfhModal(id) {
       const item = properties.find(p => p.id === id);
       if (!item || !item.wfhProfile) return;
+      lastViewedListing = item.title;
       document.getElementById('wfh-modal-title').textContent = `${item.title} — Tech Audit`;
       document.getElementById('wfh-gen-schedule').textContent = item.wfhProfile.genSchedule;
       document.getElementById('wfh-solar-policy').textContent = item.wfhProfile.solarPolicy;
@@ -1503,10 +1557,10 @@
       }
       container.innerHTML = savedProps.map(item => `
         <div class="p-3 rounded-2xl bg-white dark:bg-dark-card border border-slate-200 dark:border-dark-border flex gap-3 items-center">
-          <img src="${item.images[0]}" class="w-16 h-16 rounded-xl object-cover" />
+          <img src="${escapeHtml(item.images[0])}" alt="" class="w-16 h-16 rounded-xl object-cover" />
           <div class="flex-1 min-w-0">
-            <h4 class="font-extrabold text-xs truncate">${item.title}</h4>
-            <p class="text-[11px] text-slate-500">${item.location}</p>
+            <h4 class="font-extrabold text-xs truncate">${escapeHtml(item.title)}</h4>
+            <p class="text-[11px] text-slate-500">${escapeHtml(item.location)}</p>
             <p class="text-xs font-black text-brand-500 mt-1">${formatNaira(item.price)}/yr</p>
           </div>
           <button onclick="toggleFavorite('${item.id}')" class="text-rose-500 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
@@ -1518,6 +1572,7 @@
     function openPropertyVideoModal(id) {
       const item = properties.find(p => p.id === id);
       if (!item) return;
+      lastViewedListing = item.title;
       document.getElementById('modal-tour-title').textContent = `${item.title} — Raw Video Tour`;
       document.getElementById('modal-tour-img').src = item.images[0];
       const whatsappBtn = document.getElementById('modal-whatsapp-action');
@@ -1618,13 +1673,12 @@
     }
     function calculateFlexMonthly() {
       const val = Number(document.getElementById('flex-calc-input').value) || 0;
-      const monthly = Math.round((val * 1.15) / 12);
-      document.getElementById('flex-monthly-output').textContent = formatNaira(monthly) + ' / mo';
+      document.getElementById('flex-monthly-output').textContent = formatNaira(flexMonthly(val)) + ' / mo';
     }
     function applyFlexWhatsapp() {
       const val = document.getElementById('flex-calc-input').value;
-      const text = `Hello NaijaRentBeta, I want to apply for Pay Small Small for a yearly rent of ₦${Number(val).toLocaleString()}.`;
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(text)}`, '_blank');
+      const text = `Hello NaijaRentBeta, I want to apply for Pay Small Small for a yearly rent of ${formatNaira(val)}.`;
+      window.open(whatsappUrl(text), '_blank');
     }
 
     function openCommuteModal() {
@@ -1671,6 +1725,7 @@
     function handleNewListingSubmit(e) {
       e.preventDefault();
       const price = Number(document.getElementById('nl-price').value);
+      if (!Number.isFinite(price) || price <= 0) return;
       const newProp = {
         id: "lag-" + Date.now(),
         title: document.getElementById('nl-title').value,
@@ -1678,7 +1733,6 @@
         subArea: document.getElementById('nl-loc').value + " Verified",
         type: "Self-con",
         price: price,
-        monthlyFlex: Math.round(price / 11),
         legalFee: Math.round(price * 0.1),
         cautionFee: Math.round(price * 0.1),
         estateDues: 30000,
@@ -1700,8 +1754,12 @@
           noiseRating: "Peaceful residential neighborhood."
         }
       };
+      userListings.unshift(newProp);
       properties.unshift(newProp);
-      localStorage.setItem('naija_listings_v2', JSON.stringify(properties));
+      try {
+        localStorage.setItem(USER_LISTINGS_KEY, JSON.stringify(userListings));
+      } catch(err) {}
+      e.target.reset();
       closeListHouseModal();
       runLiveFilters();
       confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
@@ -1710,47 +1768,218 @@
     function quickWhatsAppContact(title, price) {
       const cleanPrice = typeof price === 'number' ? formatNaira(price) : price;
       const msg = `Hello NaijaRentBeta, I just watched the uncut tour of "${title}" (${cleanPrice}/year). I want to schedule physical key inspection with the verified landlord.`;
-      window.open(`https://wa.me/2348000000000?text=${encodeURIComponent(msg)}`, '_blank');
+      window.open(whatsappUrl(msg), '_blank');
+    }
+
+    function contactAboutProperty(id) {
+      const item = properties.find(p => p.id === id);
+      if (item) quickWhatsAppContact(item.title, item.price);
+    }
+
+    // ---------- BetaBot live chat ----------
+    // Visitor messages go to the chat Worker, which forwards them to the owner's Telegram.
+    // The owner's Telegram replies come back through /chat/poll. Leave CHAT_API empty to disable.
+    const CHAT_API_URL = 'https://naijarentbeta-chat.betterdays-goalhub.workers.dev';
+    // ?chatApi=http://localhost:8787 lets you test against a local Worker (only works on localhost)
+    const CHAT_API = (location.hostname === 'localhost' && new URLSearchParams(location.search).get('chatApi')) || CHAT_API_URL;
+    const CHAT_SESSION_KEY = 'nrb_chat_session';
+    const CHAT_ACTIVE_KEY = 'nrb_chat_active_until';
+    const CHAT_SEEN_KEY = 'nrb_chat_seen_id'; // newest message id the visitor has seen with the chat open
+    const CHAT_POLL_OPEN_MS = 4000;
+    const CHAT_POLL_CLOSED_MS = 30000;
+
+    let chatLastId = 0;
+    let chatPollTimer = null;
+    let chatPolling = false;
+    let chatAutoReplied = false;
+    let lastViewedListing = null;
+    let lastVisitorMessage = '';
+
+    function storageGet(key) {
+      try { return localStorage.getItem(key); } catch(e) { return null; }
+    }
+    function storageSet(key, value) {
+      try { localStorage.setItem(key, value); } catch(e) {}
+    }
+
+    function getChatSession() {
+      let id = storageGet(CHAT_SESSION_KEY);
+      if (!/^[a-z0-9]{24}$/.test(id || '')) {
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        const bytes = crypto.getRandomValues(new Uint8Array(24));
+        id = Array.from(bytes, b => chars[b % 36]).join('');
+        storageSet(CHAT_SESSION_KEY, id);
+      }
+      return id;
+    }
+
+    function isChatActive() {
+      return Number(storageGet(CHAT_ACTIVE_KEY) || 0) > Date.now();
+    }
+
+    function isChatOpen() {
+      return !document.getElementById('betabot-window').classList.contains('hidden');
+    }
+
+    function appendChatBubble(sender, text, opts = {}) {
+      const container = document.getElementById('betabot-messages');
+      const row = document.createElement('div');
+      if (opts.serverId) row.dataset.msgId = opts.serverId;
+      if (sender === 'visitor') {
+        row.className = 'visitor-row flex flex-col items-end gap-1';
+        row.dataset.text = text;
+        row.innerHTML = `
+          <div class="bg-brand-500 text-dark-bg font-semibold p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[80%] whitespace-pre-wrap break-words">${escapeHtml(text)}</div>
+          <span class="chat-status text-[10px] text-slate-400">${escapeHtml(opts.status || '')}</span>`;
+      } else {
+        const label = sender === 'agent' ? 'NaijaRentBeta team' : 'BetaBot (auto-reply)';
+        const avatar = sender === 'agent' ? '🧑🏾‍💼' : '🤖';
+        row.className = 'flex items-start gap-2';
+        row.innerHTML = `
+          <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">${avatar}</div>
+          <div class="max-w-[85%]">
+            <span class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 mb-0.5">${label}</span>
+            <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border ${sender === 'agent' ? 'border-brand-500/40' : 'border-slate-200 dark:border-dark-border'} text-slate-800 dark:text-slate-200 leading-relaxed whitespace-pre-wrap break-words">${escapeHtml(text)}</div>
+          </div>`;
+      }
+      container.appendChild(row);
+      container.scrollTop = container.scrollHeight;
+      return row;
+    }
+
+    function setUnreadDot(show) {
+      document.getElementById('betabot-unread-dot').classList.toggle('hidden', !show);
+      document.getElementById('mobile-betabot-unread-dot').classList.toggle('hidden', !show);
+    }
+
+    function markChatSeen() {
+      storageSet(CHAT_SEEN_KEY, String(chatLastId));
+      setUnreadDot(false);
     }
 
     function toggleBetaBot() {
       document.getElementById('betabot-window').classList.toggle('hidden');
+      if (isChatOpen()) {
+        markChatSeen();
+        document.getElementById('betabot-input').focus({ preventScroll: true });
+      }
+      scheduleChatPoll(0);
     }
+
     function askPresetBot(q) {
       document.getElementById('betabot-input').value = q;
       sendBetaBotMsg();
     }
-    function sendBetaBotMsg() {
-      const input = document.getElementById('betabot-input');
-      const text = input.value.trim();
-      if (!text) return;
 
-      const container = document.getElementById('betabot-messages');
-      container.innerHTML += `
-        <div class="flex items-start justify-end gap-2">
-          <div class="bg-brand-500 text-dark-bg font-semibold p-3 rounded-2xl rounded-tr-none text-xs leading-relaxed max-w-[80%]">${text}</div>
-        </div>
-      `;
-      input.value = '';
-      container.scrollTop = container.scrollHeight;
-
-      setTimeout(() => {
-        let reply = "Every house on NaijaRentBeta features a true all-in move-in cost breakdown, NIN landlord verification, and zero roadside agent fees.";
-        if (text.toLowerCase().includes('pack-in') || text.toLowerCase().includes('cost')) {
-          reply = "The true pack-in cost equals: Base Rent + 10% Legal + 10% Refundable Caution + Estate/LAWMA levy. Roadside agency fees are completely ₦0 on NaijaRentBeta!";
-        } else if (text.toLowerCase().includes('wfh') || text.toLowerCase().includes('fiber') || text.toLowerCase().includes('nepa')) {
-          reply = "Houses with the 💻 WFH badge are physically verified for FiberOne/ipNX connectivity, solar inverter permissions, and Band A grid supply (20+ hrs daily).";
-        }
-        container.innerHTML += `
-          <div class="flex items-start gap-2">
-            <div class="w-6 h-6 rounded-full bg-brand-500/20 text-brand-500 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">🤖</div>
-            <div class="bg-slate-100 dark:bg-dark-card p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-dark-border text-slate-800 dark:text-slate-200 leading-relaxed">${reply}</div>
-          </div>
-        `;
-        container.scrollTop = container.scrollHeight;
-        lucide.createIcons();
-      }, 400);
+    function continueChatOnWhatsApp() {
+      const about = lastViewedListing ? ` about "${lastViewedListing}"` : '';
+      const msg = lastVisitorMessage
+        ? `Hello NaijaRentBeta, I sent this in your website chat${about}: "${lastVisitorMessage}"`
+        : `Hello NaijaRentBeta, I have a question${about}.`;
+      window.open(whatsappUrl(msg), '_blank');
     }
+
+    function faqAutoReply(text) {
+      const t = text.toLowerCase();
+      if (t.includes('pack-in') || t.includes('cost')) {
+        return "Quick answer: the true pack-in cost = Base Rent + 10% Legal + 10% Refundable Caution + Estate/LAWMA levy. Roadside agent fees are ₦0 on NaijaRentBeta.";
+      }
+      if (t.includes('wfh') || t.includes('fiber') || t.includes('nepa')) {
+        return "Quick answer: houses with the 💻 WFH badge are checked for FiberOne/ipNX, solar inverter permission, and Band A power (20+ hrs daily).";
+      }
+      return null;
+    }
+
+    async function sendBetaBotMsg() {
+      const input = document.getElementById('betabot-input');
+      const text = input.value.trim().slice(0, 1000);
+      if (!text) return;
+      input.value = '';
+      lastVisitorMessage = text;
+
+      const bubble = appendChatBubble('visitor', text, { status: CHAT_API ? 'Sending…' : '' });
+      const faq = faqAutoReply(text);
+      if (faq) setTimeout(() => appendChatBubble('bot', faq), 400);
+
+      if (!CHAT_API) {
+        if (!faq) setTimeout(() => appendChatBubble('bot', "Thanks! For a quick answer from our team, tap “Chat on WhatsApp” above."), 400);
+        return;
+      }
+
+      const statusEl = bubble.querySelector('.chat-status');
+      try {
+        const res = await fetch(`${CHAT_API}/chat/send`, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ session: getChatSession(), text, page: lastViewedListing || 'Homepage' })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          bubble.dataset.msgId = data.id;
+          statusEl.textContent = 'Sent ✓';
+          storageSet(CHAT_ACTIVE_KEY, String(Date.now() + 24 * 60 * 60 * 1000));
+          if (!chatAutoReplied) {
+            chatAutoReplied = true;
+            setTimeout(() => appendChatBubble('bot', "Thanks! Our team don get your message and will reply right here. Keep this page open, or come back later — your chat is saved on this device. Need a faster answer? Tap “Chat on WhatsApp”."), faq ? 900 : 400);
+          }
+          scheduleChatPoll(CHAT_POLL_OPEN_MS);
+        } else if (data.error === 'slow_down') {
+          statusEl.textContent = 'Not sent — you are sending too fast. Wait a minute and try again.';
+        } else {
+          statusEl.textContent = 'Not sent — please try again, or tap “Chat on WhatsApp”.';
+        }
+      } catch (err) {
+        statusEl.textContent = 'Not sent — check your internet and try again, or tap “Chat on WhatsApp”.';
+      }
+    }
+
+    async function pollChat() {
+      if (!CHAT_API || chatPolling) return;
+      chatPolling = true;
+      try {
+        const res = await fetch(`${CHAT_API}/chat/poll?session=${getChatSession()}&after=${chatLastId}`);
+        const data = await res.json();
+        if (data.ok) {
+          let newAgentMessage = 0; // id of the newest team reply in this batch
+          const container = document.getElementById('betabot-messages');
+          data.messages.forEach(m => {
+            chatLastId = Math.max(chatLastId, m.id);
+            if (container.querySelector(`[data-msg-id="${m.id}"]`)) return;
+            // A message this page just sent may come back before its send request finishes
+            const pending = m.sender === 'visitor'
+              ? [...container.querySelectorAll('.visitor-row:not([data-msg-id])')].find(el => el.dataset.text === m.text)
+              : null;
+            if (pending) {
+              pending.dataset.msgId = m.id;
+              return;
+            }
+            appendChatBubble(m.sender === 'agent' ? 'agent' : 'visitor', m.text, { serverId: m.id, status: m.sender === 'visitor' ? 'Sent ✓' : '' });
+            if (m.sender === 'agent') newAgentMessage = m.id;
+          });
+          const seen = Number(storageGet(CHAT_SEEN_KEY) || 0);
+          if (isChatOpen()) markChatSeen();
+          else if (newAgentMessage > seen) setUnreadDot(true);
+        }
+      } catch (err) {
+        // offline or server unreachable — try again on the next tick
+      } finally {
+        chatPolling = false;
+      }
+    }
+
+    // Poll often while the chat is open, slowly while a recent conversation exists, and never in a hidden tab
+    function scheduleChatPoll(delay) {
+      clearTimeout(chatPollTimer);
+      if (!CHAT_API || document.hidden) return;
+      const open = isChatOpen();
+      if (!open && !isChatActive()) return;
+      chatPollTimer = setTimeout(async () => {
+        await pollChat();
+        scheduleChatPoll(isChatOpen() ? CHAT_POLL_OPEN_MS : CHAT_POLL_CLOSED_MS);
+      }, delay);
+    }
+
+    document.addEventListener('visibilitychange', () => scheduleChatPoll(0));
 
     function openCommandPalette() {
       document.getElementById('cmd-palette').classList.remove('hidden');
@@ -1775,7 +2004,26 @@
         closeListHouseModal();
         closeCostModal();
         closeWfhModal();
+        document.getElementById('saved-drawer').classList.add('translate-x-full');
+        document.getElementById('betabot-window').classList.add('hidden');
       }
+    });
+
+    // Clicking the dark backdrop (outside the dialog box) closes that dialog
+    const BACKDROP_CLOSERS = {
+      'cost-modal': closeCostModal,
+      'wfh-modal': closeWfhModal,
+      'video-tour-modal': closeVideoModal,
+      'flex-pay-modal': closeFlexPayModal,
+      'agreement-modal': closeAgreementModal,
+      'commute-modal': closeCommuteModal,
+      'list-house-modal': closeListHouseModal,
+      'cmd-palette': closeCommandPalette
+    };
+    Object.entries(BACKDROP_CLOSERS).forEach(([id, close]) => {
+      document.getElementById(id).addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) close();
+      });
     });
 
     function handleCmdSearch(q) {
@@ -1789,8 +2037,8 @@
       container.innerHTML = matched.map(m => `
         <div onclick="closeCommandPalette(); openPropertyVideoModal('${m.id}')" class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-dark-surface cursor-pointer flex items-center justify-between">
           <div>
-            <p class="font-extrabold text-slate-900 dark:text-white">${m.title}</p>
-            <p class="text-[10px] text-slate-500">${m.location}</p>
+            <p class="font-extrabold text-slate-900 dark:text-white">${escapeHtml(m.title)}</p>
+            <p class="text-[10px] text-slate-500">${escapeHtml(m.location)}</p>
           </div>
           <span class="font-bold text-brand-500">${formatNaira(m.price)}</span>
         </div>
@@ -1798,9 +2046,12 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      renderListings();
+      document.getElementById('footer-whatsapp-link').href = whatsappUrl('Hello NaijaRentBeta, I need a verified apartment');
+      runLiveFilters();
       updateSavedBadge();
       lucide.createIcons();
+      // Returning visitor with a recent chat: fetch any replies that arrived while they were away
+      scheduleChatPoll(0);
     });
   </script>
 </body>
